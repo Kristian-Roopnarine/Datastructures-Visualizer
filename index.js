@@ -1,7 +1,7 @@
 let newArrayButton = document.getElementById('new-array-button')
 let arraySpace = document.getElementById('array-space')
-let ARRAY_SIZE = 10
-
+let ARRAY_SIZE = 8
+let RIGHT_ARROW_PATH = './right-arrow.svg'
 
 
 function randomIntFromInterval(min,max){
@@ -13,6 +13,7 @@ function createNewArray(){
     for (var i=0;i<ARRAY_SIZE;i++){
         arr.push(randomIntFromInterval(1,25))
     }
+    arr.push(null)
     return arr
 }
 
@@ -22,13 +23,18 @@ function renderArray(arr){
     if (arraySpace.firstChild) {
         while (arraySpace.firstChild) arraySpace.removeChild(arraySpace.firstChild)
     }
-    
+
     //creates new nodes
     arr.forEach(element=>{
         var newDiv = document.createElement('div')
-        newDiv.className='col animate__animated animate__fadeInDown'
-        newDiv.appendChild(document.createTextNode(element))
+        newDiv.className='col-1 text-center animate__animated animate__fadeInDown'
+        newDiv.innerHTML = `<h1><span class="align-middle">${element}</span></h1>`
         arraySpace.appendChild(newDiv)
+        //newDiv.appendChild(document.createTextNode(element))
+        if (element != null){
+            arrowDiv = createArrows()
+            arraySpace.appendChild(arrowDiv)  
+        }
     });
     
 }
@@ -39,11 +45,10 @@ function clicked(){
 }
 
 function createArrows(){
-    // find middle right position of element
-
-    // find middle left position of next element
-
-    // draw svg between the two
+    var arrowDiv = document.createElement('div')
+    arrowDiv.className="col animate__animated animate__fadeInDown d-flex align-items-center"
+    arrowDiv.innerHTML = `<img class="mx-auto" src=${RIGHT_ARROW_PATH} height="25px" />`
+    return arrowDiv
 }
 
 newArrayButton.addEventListener('click',clicked)
