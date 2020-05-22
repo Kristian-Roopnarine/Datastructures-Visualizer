@@ -26,11 +26,13 @@ function renderArray(arr){
 
     //creates new nodes
     arr.forEach(element=>{
+        
         var newDiv = document.createElement('div')
         newDiv.className='col-1 text-center animate__animated animate__fadeInDown'
         newDiv.innerHTML = `<h1><span class="align-middle">${element}</span></h1>`
         arraySpace.appendChild(newDiv)
         //newDiv.appendChild(document.createTextNode(element))
+
         if (element != null){
             arrowDiv = createArrows()
             arraySpace.appendChild(arrowDiv)  
