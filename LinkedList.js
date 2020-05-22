@@ -41,9 +41,11 @@ class LinkedList {
             node.next = this.root
             this.root = node
         }
+        this.size++
     }
 
     find(value){
+        let thisNode;
         thisNode = this.root
         while (thisNode !== null){
             if (thisNode.value === value){
@@ -56,6 +58,8 @@ class LinkedList {
     }
 
     delete(value){
+        let thisNode;
+        let prevNode;
         thisNode = this.root
         prevNode = null
 
@@ -77,11 +81,13 @@ class LinkedList {
         return false
     }
 
-    insert(valueToFind,nodeToInsert){
+    insertBefore(valueToFind,nodeToInsert){
+        let thisNode;
+        let prevNode;
         thisNode = this.root
         prevNode = null
 
-        while(thisNode !== null){
+        while (thisNode !== null) {
             if (valueToFind === thisNode.value){
                 if (prevNode === null){
                     this.add(nodeToInsert)
@@ -96,5 +102,70 @@ class LinkedList {
             }
         }
         return false
-    } 
+    }
+
+    insertAfter(valueToFind,nodeToInsert){
+        let thisNode;
+        let prevNode;
+        let nextNode;
+
+        thisNode = this.root
+        prevNode = null
+
+        while(thisNode !== null){
+            if (valueToFind === thisNode.value){
+                if (prevNode === null){
+                    nodeToInsert.next=this.root.next
+                    this.root.next=nodeToInsert
+                } else {
+                    nextNode = thisNode.next
+                    thisNode.next = nodeToInsert
+                    nodeToInsert.next = nextNode
+                    return
+                }
+            } else {
+                prevNode = thisNode
+                thisNode=thisNode.next
+            }
+        }
+        return false
+    }
+
+    printValues(){
+        let thisNode;
+        thisNode = this.root
+        console.log("Printing Nodes...")
+        while(thisNode !== null){
+            console.log(`Node Value: ${thisNode.value} Next Node: ${thisNode.next}`)
+            thisNode = thisNode.next
+        }
+    }
 }
+
+function randomIntFromInterval(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function createNodes(){
+    for (var i=0;i<6;i++){
+        nodes.push(new Node(i))
+    }
+}   
+
+function createLinkedList(){
+    for (var i=0;i<6;i++){
+        testLinked.add(nodes[i])
+    }
+}
+
+
+
+let testLinked = new LinkedList()
+let nodes = []
+createNodes()
+createLinkedList()
+testLinked.delete(4)
+testLinked.insertBefore(3,new Node(7))
+testLinked.insertAfter(7,new Node(8))
+testLinked.printValues()
+
