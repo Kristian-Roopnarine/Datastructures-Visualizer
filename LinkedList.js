@@ -46,6 +46,7 @@ class LinkedList {
 
     find(value){
         let thisNode;
+
         thisNode = this.root
         while (thisNode !== null){
             if (thisNode.value === value){
@@ -136,7 +137,7 @@ class LinkedList {
         thisNode = this.root
         console.log("Printing Nodes...")
         while(thisNode !== null){
-            console.log(`Node Value: ${thisNode.value} Next Node: ${thisNode.next}`)
+            console.log(`Node Value: ${thisNode.value.value} Next Node: ${thisNode.next}`)
             thisNode = thisNode.next
         }
     }
@@ -147,9 +148,7 @@ function randomIntFromInterval(min,max){
 }
 
 function createNodes(){
-    for (var i=0;i<6;i++){
-        nodes.push(new Node(i))
-    }
+    return new Node(randomIntFromInterval(0,99))
 }   
 
 function createLinkedList(){
@@ -159,13 +158,4 @@ function createLinkedList(){
 }
 
 
-
-let testLinked = new LinkedList()
-let nodes = []
-createNodes()
-createLinkedList()
-testLinked.delete(4)
-testLinked.insertBefore(3,new Node(7))
-testLinked.insertAfter(7,new Node(8))
-testLinked.printValues()
-
+//let LL = new LinkedList()
