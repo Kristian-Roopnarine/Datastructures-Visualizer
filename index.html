@@ -42,123 +42,151 @@
         </div>
         <div class="row">
             <div class="col-3">
-                <pre>
-                    <code class="language-js">
 
+                <div class="card">
+                    <div class="card-body">
+                        <pre>
+                            <code class="language-js">
 class Node {
     constructor(value){
         this.value=value
         this.next=null
     }
 }
+                            </code>
+                        </pre>
+                    </div>
+                </div>
 
+                <div class="card">
+                    <div class="card-body">
+                        <pre>
+                            <code class="language-js">
 class LinkedList {
     constructor(r=null){
         this.root = r
         this.size =0
-    }
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
 
-    add(node){
-        if (this.root === null){
-            this.root = node
+                <div class="card">
+                    <div class="card-body">
+                        <pre>
+                            <code class="language-js">
+add(node){
+    if (this.root === null){
+        this.root = node
+        return
+    } else {
+        node.next = this.root
+        this.root = node
+    }
+    this.size++
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <pre>
+                           <code class="language-js">
+find(value){
+    let thisNode=this.root
+    while (thisNode !== null){
+        if (thisNode.value === value){
+            return true
+        } else {
+            thisNode=thisNode.next
+        }
+    }
+    return false
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <pre>
+                            <code class="language-js">
+printValues(){
+    let thisNode=this.root
+    console.log("Printing Nodes...")
+    while(thisNode !== null){
+        console.log(`Node Value: ${thisNode.value.value} Next Node: ${thisNode.next}`)
+        thisNode = thisNode.next
+    }
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <pre>
+                            <code class="language-js">
+delete(value){
+    let thisNode=this.root
+    let prevNode=null
+
+    while (thisNode !== null){
+        if (thisNode.value === value){
+            if (prevNode === null){
+                this.root = thisNode.next
+                thisNode.next = null
+            }
+            prevNode.next = thisNode.next
+            thisNode.next = null
             return
         } else {
-            node.next = this.root
-            this.root = node
-        }
-        this.size++
-    }
-
-    find(value){
-        let thisNode=this.root
-        while (thisNode !== null){
-            if (thisNode.value === value){
-                return true
-            } else {
-                thisNode=thisNode.next
-            }
-        }
-        return false
-    }
-
-    delete(value){
-        let thisNode=this.root
-        let prevNode=null
-
-        while (thisNode !== null){
-            if (thisNode.value === value){
-                if (prevNode === null){
-                    this.root = thisNode.next
-                    thisNode.next = null
-                }
-                prevNode.next = thisNode.next
-                thisNode.next = null
-                return
-            } else {
-                prevNode = thisNode
-                thisNode = thisNode.next
-            }
-        }
-
-        return false
-    }
-
-    insertBefore(valueToFind,nodeToInsert){
-        let thisNode=this.root
-        let prevNode=null
-
-        while (thisNode !== null) {
-            if (valueToFind === thisNode.value){
-                if (prevNode === null){
-                    this.add(nodeToInsert)
-                } else {
-                    nodeToInsert.next = prevNode.next
-                    prevNode.next = nodeToInsert
-                    return
-                }
-            } else {
-                prevNode=thisNode
-                thisNode=thisNode.next
-            }
-        }
-        return false
-    }
-
-    insertAfter(valueToFind,nodeToInsert){
-        let thisNode=this.root
-        let prevNode=null
-        let nextNode;
-
-        while(thisNode !== null){
-            if (valueToFind === thisNode.value){
-                if (prevNode === null){
-                    nodeToInsert.next=this.root.next
-                    this.root.next=nodeToInsert
-                } else {
-                    nextNode = thisNode.next
-                    thisNode.next = nodeToInsert
-                    nodeToInsert.next = nextNode
-                    return
-                }
-            } else {
-                prevNode = thisNode
-                thisNode=thisNode.next
-            }
-        }
-        return false
-    }
-
-    printValues(){
-        let thisNode=this.root
-        console.log("Printing Nodes...")
-        while(thisNode !== null){
-            console.log(`Node Value: ${thisNode.value.value} Next Node: ${thisNode.next}`)
+            prevNode = thisNode
             thisNode = thisNode.next
         }
     }
+
+    return false
+}                                
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <pre>
+                            <code class="language-js">
+insert(valueToFind,nodeToInsert){
+    let thisNode=this.root
+    let prevNode=null
+
+    while (thisNode !== null) {
+        if (valueToFind === thisNode.value){
+            if (prevNode === null){
+                this.add(nodeToInsert)
+            } else {
+                nodeToInsert.next = prevNode.next
+                prevNode.next = nodeToInsert
+                return
+            }
+        } else {
+            prevNode=thisNode
+            thisNode=thisNode.next
+        }
+    }
+    return false
 }
-                    </code>
-                </pre>
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+
             </div>
             <div class="col">
                 <div class="row" id="linked-list-space">
