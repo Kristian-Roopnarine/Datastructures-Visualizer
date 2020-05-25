@@ -14,22 +14,37 @@ newLLNode.addEventListener('click',addNode)
 
 function renderLinkedList(){
     document.getElementById('initialize-LL').style.display='block'
+    document.getElementById('initialize-LL').classList.add('animate__animated','animate__fadeIn')
     LL = new LinkedList()
 }
 
+function updateRoot(){
+
+    for(var i=0;i < linkedListSpace.childNodes.length;i++){
+        i===0 ? linkedListSpace.childNodes[i].style.textDecoration="underline": linkedListSpace.childNodes[i].style.textDecoration="none"
+    }
+}
+
+
 function addNode(){
+
     LLMethods.style.display='block'
+    LLMethods.classList.add('animate__animated','animate__fadeIn')
     let nodeToAdd = new Node(createNodes())
     LL.add(nodeToAdd)
+
     if (LL.size > 0){
         arrowDiv = createArrows()
         linkedListSpace.insertBefore(arrowDiv,linkedListSpace.childNodes[0])  
     }
+
     var newDiv = document.createElement('div')
     newDiv.id = `${LL.size}-${nodeToAdd.value.value}`
     newDiv.className = 'col-1 text-center animate__animated animate__fadeInDown'
     newDiv.innerHTML = `<h1><span class="align-middle">${nodeToAdd.value.value}</span></h1>`
     linkedListSpace.insertBefore(newDiv,linkedListSpace.childNodes[0])
+
+    updateRoot()
     
 }
 
