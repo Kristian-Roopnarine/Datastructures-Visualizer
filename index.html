@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-3">
 
-                <div class="card">
+                <div class="card" id="initialize-LL" style="display:none;">
                     <div class="card-body">
                         <pre>
                             <code class="language-js">
@@ -53,29 +53,39 @@ class Node {
         this.next=null
     }
 }
-                            </code>
-                        </pre>
-                    </div>
-                </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        <pre>
-                            <code class="language-js">
 class LinkedList {
     constructor(r=null){
         this.root = r
         this.size =0
 }
+
+// initialize Linked List                               
+LL = new LinkedList()
                             </code>
                         </pre>
                     </div>
                 </div>
+            </div>
 
+            <div class="col">
+                <div class="row" id="linked-list-space">
+
+                </div>
+            </div>
+
+            <div class="col-3" id="linked-list-methods" style="display:none;">
                 <div class="card">
                     <div class="card-body">
                         <pre>
                             <code class="language-js">
+// create Node instance
+let nodeToAdd = new Node(createNodes())
+
+// add Node to Linked List
+LL.add(nodeToAdd)
+
+// Linked List class method to add Node instances
 add(node){
     if (this.root === null){
         this.root = node
@@ -89,108 +99,6 @@ add(node){
                             </code>
                         </pre>
                     </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <pre>
-                           <code class="language-js">
-find(value){
-    let thisNode=this.root
-    while (thisNode !== null){
-        if (thisNode.value === value){
-            return true
-        } else {
-            thisNode=thisNode.next
-        }
-    }
-    return false
-}
-                            </code>
-                        </pre>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <pre>
-                            <code class="language-js">
-printValues(){
-    let thisNode=this.root
-    console.log("Printing Nodes...")
-    while(thisNode !== null){
-        console.log(`Node Value: ${thisNode.value.value} Next Node: ${thisNode.next}`)
-        thisNode = thisNode.next
-    }
-}
-                            </code>
-                        </pre>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <pre>
-                            <code class="language-js">
-delete(value){
-    let thisNode=this.root
-    let prevNode=null
-
-    while (thisNode !== null){
-        if (thisNode.value === value){
-            if (prevNode === null){
-                this.root = thisNode.next
-                thisNode.next = null
-            }
-            prevNode.next = thisNode.next
-            thisNode.next = null
-            return
-        } else {
-            prevNode = thisNode
-            thisNode = thisNode.next
-        }
-    }
-
-    return false
-}                                
-                            </code>
-                        </pre>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <pre>
-                            <code class="language-js">
-insert(valueToFind,nodeToInsert){
-    let thisNode=this.root
-    let prevNode=null
-
-    while (thisNode !== null) {
-        if (valueToFind === thisNode.value){
-            if (prevNode === null){
-                this.add(nodeToInsert)
-            } else {
-                nodeToInsert.next = prevNode.next
-                prevNode.next = nodeToInsert
-                return
-            }
-        } else {
-            prevNode=thisNode
-            thisNode=thisNode.next
-        }
-    }
-    return false
-}
-                            </code>
-                        </pre>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col">
-                <div class="row" id="linked-list-space">
-
                 </div>
             </div>
         </div>

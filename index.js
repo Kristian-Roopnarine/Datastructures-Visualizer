@@ -5,6 +5,7 @@ let RIGHT_ARROW_PATH = './right-arrow.svg'
 let linkedListSpace = document.getElementById('linked-list-space')
 let newLinkedList = document.getElementById('new-linked-list')
 let newLLNode = document.getElementById('new-node')
+let LLMethods = document.getElementById('linked-list-methods')
 
 newArrayButton.addEventListener('click',clicked)
 newLinkedList.addEventListener('click',renderLinkedList)
@@ -12,10 +13,12 @@ newLLNode.addEventListener('click',addNode)
 
 
 function renderLinkedList(){
+    document.getElementById('initialize-LL').style.display='block'
     LL = new LinkedList()
 }
 
 function addNode(){
+    LLMethods.style.display='block'
     let nodeToAdd = new Node(createNodes())
     LL.add(nodeToAdd)
     if (LL.size > 0){
@@ -28,7 +31,6 @@ function addNode(){
     newDiv.innerHTML = `<h1><span class="align-middle">${nodeToAdd.value.value}</span></h1>`
     linkedListSpace.insertBefore(newDiv,linkedListSpace.childNodes[0])
     
-    LL.printValues()
 }
 
 function randomIntFromInterval(min,max){
