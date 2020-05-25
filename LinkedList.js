@@ -45,9 +45,7 @@ class LinkedList {
     }
 
     find(value){
-        let thisNode;
-
-        thisNode = this.root
+        let thisNode=this.root
         while (thisNode !== null){
             if (thisNode.value === value){
                 return true
@@ -59,10 +57,8 @@ class LinkedList {
     }
 
     delete(value){
-        let thisNode;
-        let prevNode;
-        thisNode = this.root
-        prevNode = null
+        let thisNode=this.root
+        let prevNode=null
 
         while (thisNode !== null){
             if (thisNode.value === value){
@@ -83,10 +79,8 @@ class LinkedList {
     }
 
     insertBefore(valueToFind,nodeToInsert){
-        let thisNode;
-        let prevNode;
-        thisNode = this.root
-        prevNode = null
+        let thisNode=this.root
+        let prevNode=null
 
         while (thisNode !== null) {
             if (valueToFind === thisNode.value){
@@ -106,12 +100,9 @@ class LinkedList {
     }
 
     insertAfter(valueToFind,nodeToInsert){
-        let thisNode;
-        let prevNode;
+        let thisNode=this.root
+        let prevNode=null
         let nextNode;
-
-        thisNode = this.root
-        prevNode = null
 
         while(thisNode !== null){
             if (valueToFind === thisNode.value){
@@ -133,8 +124,7 @@ class LinkedList {
     }
 
     printValues(){
-        let thisNode;
-        thisNode = this.root
+        let thisNode=this.root
         console.log("Printing Nodes...")
         while(thisNode !== null){
             console.log(`Node Value: ${thisNode.value.value} Next Node: ${thisNode.next}`)

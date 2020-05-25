@@ -9,6 +9,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
     />
+    <link href="prism.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -35,12 +36,135 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="fluid-container">
         <div class="row" id="array-space">
 
         </div>
-        <div class="row" id="linked-list-space">
-            
+        <div class="row">
+            <div class="col-3">
+                <pre>
+                    <code class="language-js">
+
+class Node {
+    constructor(value){
+        this.value=value
+        this.next=null
+    }
+}
+
+class LinkedList {
+    constructor(r=null){
+        this.root = r
+        this.size =0
+    }
+
+    add(node){
+        if (this.root === null){
+            this.root = node
+            return
+        } else {
+            node.next = this.root
+            this.root = node
+        }
+        this.size++
+    }
+
+    find(value){
+        let thisNode=this.root
+        while (thisNode !== null){
+            if (thisNode.value === value){
+                return true
+            } else {
+                thisNode=thisNode.next
+            }
+        }
+        return false
+    }
+
+    delete(value){
+        let thisNode=this.root
+        let prevNode=null
+
+        while (thisNode !== null){
+            if (thisNode.value === value){
+                if (prevNode === null){
+                    this.root = thisNode.next
+                    thisNode.next = null
+                }
+                prevNode.next = thisNode.next
+                thisNode.next = null
+                return
+            } else {
+                prevNode = thisNode
+                thisNode = thisNode.next
+            }
+        }
+
+        return false
+    }
+
+    insertBefore(valueToFind,nodeToInsert){
+        let thisNode=this.root
+        let prevNode=null
+
+        while (thisNode !== null) {
+            if (valueToFind === thisNode.value){
+                if (prevNode === null){
+                    this.add(nodeToInsert)
+                } else {
+                    nodeToInsert.next = prevNode.next
+                    prevNode.next = nodeToInsert
+                    return
+                }
+            } else {
+                prevNode=thisNode
+                thisNode=thisNode.next
+            }
+        }
+        return false
+    }
+
+    insertAfter(valueToFind,nodeToInsert){
+        let thisNode=this.root
+        let prevNode=null
+        let nextNode;
+
+        while(thisNode !== null){
+            if (valueToFind === thisNode.value){
+                if (prevNode === null){
+                    nodeToInsert.next=this.root.next
+                    this.root.next=nodeToInsert
+                } else {
+                    nextNode = thisNode.next
+                    thisNode.next = nodeToInsert
+                    nodeToInsert.next = nextNode
+                    return
+                }
+            } else {
+                prevNode = thisNode
+                thisNode=thisNode.next
+            }
+        }
+        return false
+    }
+
+    printValues(){
+        let thisNode=this.root
+        console.log("Printing Nodes...")
+        while(thisNode !== null){
+            console.log(`Node Value: ${thisNode.value.value} Next Node: ${thisNode.next}`)
+            thisNode = thisNode.next
+        }
+    }
+}
+                    </code>
+                </pre>
+            </div>
+            <div class="col">
+                <div class="row" id="linked-list-space">
+
+                </div>
+            </div>
         </div>
     </div>
 
@@ -49,6 +173,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="index.js"></script>
     <script src="LinkedList.js"></script>
+    <script src="prism.js"></script>
+    
     
 </body>
 
