@@ -14,11 +14,7 @@
 
 <body>
 
-    <div class="container">
-        <div class="btn btn-primary" id="new-array-button"> 
-            New Array
-        </div>
-
+    <div class="fluid-container text-center">
         <!--
             Linked List
             Create Linked List
@@ -27,33 +23,13 @@
             Delete node -> search bar
             Insert node -> two search bars.. one for new value and value after
         -->
-        <div class="btn btn-primary" id="new-linked-list">
-            Create an empty Linked List
-        </div>
-
-        <div class="btn btn-primary" id="new-node">
-            Add node to LL
-        </div>
-    </div>
-
-    <div class="fluid-container">
-        <div class="row" id="array-space">
-
-        </div>
-        <div class="row">
-            <div class="col-3">
-
-                <div class="card" id="initialize-LL" style="display:none;">
-                    <div class="card-body">
-                        <pre>
-                            <code class="language-js">
-class Node {
-    constructor(value){
-        this.value=value
-        this.next=null
-    }
-}
-
+        <div class="btn-group" role="group" aria-label="linked-list-initialize">
+            <button type="button" class="btn btn-success" id="new-linked-list">Initialize Linked List</button>
+            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+            <div class="dropdown-menu">
+                <div id="linked-list-methods">
+                    <pre>
+                        <code class="language-js">
 class LinkedList {
     constructor(r=null){
         this.root = r
@@ -61,25 +37,28 @@ class LinkedList {
     }
 }
 
-// initialize Linked List                               
-LL = new LinkedList()
-                            </code>
-                        </pre>
-                    </div>
+let LL = new LinkedList()
+                        </code>
+                    </pre>
                 </div>
             </div>
+        </div>
 
-            <div class="col">
-                <div class="row" id="linked-list-space">
+        <div class="btn-group" role="group" aria-label="linked-list-add">
+            <button type="button" class="btn btn-primary" id="new-node">Add random integer Node to Linked List</button>
+            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
 
-                </div>
-            </div>
+            <div class="dropdown-menu">
+                <div id="linked-list-methods">
+                    <pre>
+                        <code class="language-js">
+class Node {
+    constructor(value){
+        this.value=value
+        this.next=null
+    }
+}
 
-            <div class="col-3" id="linked-list-methods" style="display:none;">
-                <div class="card">
-                    <div class="card-body">
-                        <pre>
-                            <code class="language-js">
 // create Node instance
 // createNodes() is a helper function to generate random numbers
 let nodeToAdd = new Node(createNodes())
@@ -98,12 +77,130 @@ add(node){
     }
     this.size++
 }
-                            </code>
-                        </pre>
-                    </div>
+                        </code>
+                    </pre>
                 </div>
             </div>
         </div>
+
+        <input type="number" placeholder="Node Value to Find/Delete/Insert" id="node-integer-value">
+
+
+        <div class="btn-group" role="group" aria-label="linked-list-find">
+            <button type="button" class="btn btn-warning" id="find-linked-list">Find Node</button>
+            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+            <div class="dropdown-menu">
+                <div id="linked-list-methods">
+                    <pre>
+                        <code class="language-js">
+// Linked List class method
+
+find(value){
+    let thisNode = this.root
+    while (thisNode !== null){
+        if (thisNode.value === value){
+            return true
+        } else {
+            thisNode = thisNode.next
+        }
+    }
+    return false
+}
+
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group" role="group" aria-label="linked-list-delete">
+            <button type="button" class="btn btn-danger" id="delete-linked-list">Delete Node</button>
+            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+            <div class="dropdown-menu">
+                <div id="linked-list-methods">
+                    <pre>
+                        <code class="language-js">
+// Linked List class method
+
+delete(value){
+    let thisNode = this.root
+    let prevNode = null
+
+    while (thisNode !== null){
+        if (thisNode.value === value){
+            if (prevNode === null){
+                this.root = thisNode.next
+                thisNode.next = null
+                return
+            }
+            prevNode.next = thisNode.next
+            thisNode.next = null
+            return
+
+        } else {
+            prevNode = thisNode
+            thisNode = thisNode.next
+        }
+    }
+
+    return false
+}
+
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group" role="group" aria-label="linked-list-insert">
+            <button type="button" class="btn btn-info" id="insert-linked-list">Insert Node</button>
+            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+            <div class="dropdown-menu">
+                <div id="linked-list-methods">
+                    <pre>
+                        <code class="language-js">
+// Linked List class method
+
+insertBefore(valueToFind,nodeToInsert){
+    let thisNode = this.root
+    let prevNode = null
+
+    while (thisNode !== null) {
+        if (valueToFind === thisNode.value){
+            if (prevNode === null){
+                this.add(nodeToInsert)
+            } else {
+                nodeToInsert.next = prevNode.next
+                prevNode.next = nodeToInsert
+                return
+            }
+        } else {
+            prevNode = thisNode
+            thisNode = thisNode.next
+        }
+    }
+    return false
+}
+
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="row m-0" id="feedback">
+
+        </div>
+
+        <div class="row m-0" id="linked-list-space">
+
+        </div>
+
+    </div>
+
+
+    <div class="fluid-container">
+        
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

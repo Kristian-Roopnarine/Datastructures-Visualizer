@@ -45,30 +45,34 @@ class LinkedList {
     }
 
     find(value){
-        let thisNode=this.root
+        let thisNode = this.root
+        let position = 1
         while (thisNode !== null){
-            if (thisNode.value === value){
-                return true
+            if (thisNode.value.value === value){
+                return position
             } else {
-                thisNode=thisNode.next
+                thisNode = thisNode.next
+                position ++
             }
         }
         return false
     }
 
     delete(value){
-        let thisNode=this.root
-        let prevNode=null
+        let thisNode = this.root
+        let prevNode = null
 
         while (thisNode !== null){
             if (thisNode.value === value){
                 if (prevNode === null){
                     this.root = thisNode.next
                     thisNode.next = null
+                    return
                 }
                 prevNode.next = thisNode.next
                 thisNode.next = null
                 return
+
             } else {
                 prevNode = thisNode
                 thisNode = thisNode.next
@@ -79,8 +83,8 @@ class LinkedList {
     }
 
     insertBefore(valueToFind,nodeToInsert){
-        let thisNode=this.root
-        let prevNode=null
+        let thisNode = this.root
+        let prevNode = null
 
         while (thisNode !== null) {
             if (valueToFind === thisNode.value){
@@ -92,32 +96,8 @@ class LinkedList {
                     return
                 }
             } else {
-                prevNode=thisNode
-                thisNode=thisNode.next
-            }
-        }
-        return false
-    }
-
-    insertAfter(valueToFind,nodeToInsert){
-        let thisNode=this.root
-        let prevNode=null
-        let nextNode;
-
-        while(thisNode !== null){
-            if (valueToFind === thisNode.value){
-                if (prevNode === null){
-                    nodeToInsert.next=this.root.next
-                    this.root.next=nodeToInsert
-                } else {
-                    nextNode = thisNode.next
-                    thisNode.next = nodeToInsert
-                    nodeToInsert.next = nextNode
-                    return
-                }
-            } else {
                 prevNode = thisNode
-                thisNode=thisNode.next
+                thisNode = thisNode.next
             }
         }
         return false
