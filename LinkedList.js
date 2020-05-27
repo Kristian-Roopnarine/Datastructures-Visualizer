@@ -12,7 +12,6 @@ class Node {
     }
 }
 
-
 // class for the LinkedList
 
 /*
@@ -61,21 +60,23 @@ class LinkedList {
     delete(value){
         let thisNode = this.root
         let prevNode = null
+        let position = 1
 
         while (thisNode !== null){
-            if (thisNode.value === value){
+            if (thisNode.value.value === value){
                 if (prevNode === null){
                     this.root = thisNode.next
                     thisNode.next = null
-                    return
+                    return position
                 }
                 prevNode.next = thisNode.next
                 thisNode.next = null
-                return
+                return position
 
             } else {
                 prevNode = thisNode
                 thisNode = thisNode.next
+                position++
             }
         }
 

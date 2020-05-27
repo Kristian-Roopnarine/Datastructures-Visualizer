@@ -5,10 +5,73 @@ let newLLNode = document.getElementById('new-node')
 let LLMethods = document.getElementById('linked-list-methods')
 let findNodeValue = document.getElementById('find-linked-list')
 let feedbackDiv = document.getElementById('feedback')
+let deleteLLNode = document.getElementById('delete-linked-list-node')
+let initializedLL = false
 
 newLinkedList.addEventListener('click',createLinkedList)
 newLLNode.addEventListener('click',addNode)
-findNodeValue.addEventListener('click',findNode)
+findNodeValue.addEventListener('click',animateFindNodes)
+deleteLLNode.addEventListener('click',deleteNode)
+
+
+
+function animateFindNodes(){
+    // get position
+    resetNodes()
+    let nodeValueInput = parseInt(document.getElementById('node-integer-value').value)
+    let position = LL.find(nodeValueInput)
+    if(position){
+        feedbackDiv.innerHTML = `<h2 class="text-center">Searching for a Node with a value of ${nodeValueInput}.</h2>`
+        let linkedListNodes = document.querySelectorAll('.col-2')
+        for(var i = 0 ; i < position - 1 ;i++){
+            doSetTimeout(i,linkedListNodes)
+        }
+        setTimeout(()=>{
+            linkedListNodes[position-1].firstChild.classList.add('bg-success')
+            feedbackDiv.innerHTML = `<h2 class="text-center">Found a Node with the value of ${nodeValueInput} at position ${position}</h2>`
+        },250*position-2)
+    } else {
+        feedbackDiv.innerHTML = `<h2 class="text-center">Did not find a Node with the value of ${nodeValueInput}.</h2>`
+    }
+    // iterate over the nodes array
+
+}
+
+function doSetTimeout(i,array){
+    setTimeout(()=>{
+        array[i].firstChild.classList.add('bg-danger')
+        setTimeout(()=>{
+            array[i].firstChild.classList.remove('bg-danger')
+        },270)
+    },250*i)
+    
+    
+}
+
+function deleteNode(){
+    let nodeValueInput = parseInt(document.getElementById('node-integer-value').value)
+    let position = LL.delete(nodeValueInput)
+    LL.printValues()
+
+    if(position){
+
+        let linkedListNodes = document.querySelectorAll('.col-2')
+        let arrowDiv = document.querySelectorAll('.arrow')
+        linkedListNodes[position-1].classList.remove('animate__fadeInDown')
+        linkedListNodes[position-1].classList.add('animate__fadeOut')
+
+        setTimeout(()=>{
+            linkedListSpace.removeChild(linkedListNodes[position-1])
+            linkedListSpace.removeChild(arrowDiv[position-1])
+            feedbackDiv.innerHTML = `<h2 class="text-center">Removed a Node with the value of ${nodeValueInput} at position ${position}</h2>`
+            updateRoot()
+        },1000)
+        
+    } else{
+        feedbackDiv.innerHTML = `<h2 class="text-center">Could not remove/find the Node with a value of ${nodeValueInput}</h2>`
+    }
+    
+}
 
 function resetNodes(){
     feedbackDiv.innerHTML= ""
@@ -18,11 +81,14 @@ function resetNodes(){
     })
 }
 
+function updateFeedback(renderString){
+    `<h2 class="text-center">${renderString}</h2>`
+}
+
 function findNode(){
     resetNodes()
     let nodeValueInput = parseInt(document.getElementById('node-integer-value').value)
     let position = LL.find(nodeValueInput)
-    console.log(position)
     
     if (position){
         let linkedListNodes = document.querySelectorAll('.col-2')
@@ -35,8 +101,15 @@ function findNode(){
 }
 
 function createLinkedList(){
-    LL = new LinkedList()
-    linkedListSpace.innerHTML = "<h2 class='text-center'>Linked List initialized. You can now add Nodes to your Linked List.</h2>"
+    if (initializedLL === false){
+        LL = new LinkedList()
+        feedbackDiv.innerHTML = "<h2 class='text-center'>Linked List initialized. You can now add Nodes to your Linked List.</h2>"
+        linkedListSpace.innerHTML=""
+        initializedLL = true
+    } else {
+        feedbackDiv.innerHTML = "<h2 class='text-center'>You've already created one! You can add Nodes to your Linked List.</h2>"
+    }
+    
 }
 
 function updateRoot(){
@@ -75,24 +148,10 @@ function randomIntFromInterval(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function createNewArray(){
-    const arr = []
-    for (var i=0;i<ARRAY_SIZE;i++){
-        arr.push(randomIntFromInterval(1,25))
-    }
-    arr.push(null)
-    return arr
-}
-
-
-function clicked(){
-    arr = createNewArray()
-    renderArray(arr)
-}
 
 function createArrows(){
     var arrowDiv = document.createElement('div')
-    arrowDiv.className= "col-1 animate__animated animate__fadeInDown d-flex align-items-center"
+    arrowDiv.className= "col-1 animate__animated animate__fadeInDown d-flex align-items-center arrow"
     arrowDiv.innerHTML = `<img class="mx-auto" src=${RIGHT_ARROW_PATH} height="25px" />`
     return arrowDiv
 }
