@@ -16,7 +16,7 @@ deleteLLNode.addEventListener('click',deleteNode)
 
 
 function animateFindNodes(){
-    // get position
+    
     resetNodes()
     let nodeValueInput = parseInt(document.getElementById('node-integer-value').value)
     let position = LL.find(nodeValueInput)
@@ -51,7 +51,7 @@ function turnNodeToRed(i,array){
     },300*i)
 }
 
-function animateNodeRemoval(position.nodeList){
+function animateNodeRemoval(position,nodeList){
     nodeList[position-1].classList.remove('animate__fadeInDown')
     nodeList[position-1].classList.add('animate__fadeOut')
 }
@@ -81,7 +81,7 @@ function deleteNode(){
         },1000)
         
     } else {
-        
+
         feedbackDiv.innerHTML = `<h2 class="text-center">Could not remove/find the Node with a value of ${nodeValueInput}</h2>`
     }
     
