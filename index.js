@@ -23,29 +23,42 @@ function animateFindNodes(){
     if(position){
         feedbackDiv.innerHTML = `<h2 class="text-center">Searching for a Node with a value of ${nodeValueInput}.</h2>`
         let linkedListNodes = document.querySelectorAll('.col-2')
+
         for(var i = 0 ; i < position - 1 ;i++){
-            doSetTimeout(i,linkedListNodes)
+            turnNodeToRed(i,linkedListNodes)
         }
         setTimeout(()=>{
-            linkedListNodes[position-1].firstChild.classList.add('bg-success')
-            feedbackDiv.innerHTML = `<h2 class="text-center">Found a Node with the value of ${nodeValueInput} at position ${position}</h2>`
-        },250*position-2)
+            turnNodeTogreen(position,nodeValueInput)
+        },270*position-2)
+
     } else {
         feedbackDiv.innerHTML = `<h2 class="text-center">Did not find a Node with the value of ${nodeValueInput}.</h2>`
     }
-    // iterate over the nodes array
 
 }
 
-function doSetTimeout(i,array){
+function turnNodeTogreen(position,nodeValue){
+    linkedListNodes[position-1].firstChild.classList.add('bg-success')
+    feedbackDiv.innerHTML = `<h2 class="text-center">Found a Node with the value of ${nodeValue} at position ${position}</h2>`
+}
+
+function turnNodeToRed(i,array){
     setTimeout(()=>{
         array[i].firstChild.classList.add('bg-danger')
         setTimeout(()=>{
             array[i].firstChild.classList.remove('bg-danger')
-        },270)
-    },250*i)
-    
-    
+        },350)
+    },300*i)
+}
+
+function animateNodeRemoval(position.nodeList){
+    nodeList[position-1].classList.remove('animate__fadeInDown')
+    nodeList[position-1].classList.add('animate__fadeOut')
+}
+
+function removeNodeAndArrowDiv(position,arrowDivList){
+    linkedListSpace.removeChild(linkedListNodes[position-1])
+    linkedListSpace.removeChild(arrowDivList[position-1])
 }
 
 function deleteNode(){
@@ -56,18 +69,19 @@ function deleteNode(){
     if(position){
 
         let linkedListNodes = document.querySelectorAll('.col-2')
-        let arrowDiv = document.querySelectorAll('.arrow')
-        linkedListNodes[position-1].classList.remove('animate__fadeInDown')
-        linkedListNodes[position-1].classList.add('animate__fadeOut')
+        let arrowDivs = document.querySelectorAll('.arrow')
+
+        // remove div
+        animateNodeRemoval(position,linkedListNodes)
 
         setTimeout(()=>{
-            linkedListSpace.removeChild(linkedListNodes[position-1])
-            linkedListSpace.removeChild(arrowDiv[position-1])
+            removeNodeDiv(position,arrowDivs)
             feedbackDiv.innerHTML = `<h2 class="text-center">Removed a Node with the value of ${nodeValueInput} at position ${position}</h2>`
             updateRoot()
         },1000)
         
-    } else{
+    } else {
+        
         feedbackDiv.innerHTML = `<h2 class="text-center">Could not remove/find the Node with a value of ${nodeValueInput}</h2>`
     }
     
@@ -113,6 +127,7 @@ function createLinkedList(){
 }
 
 function updateRoot(){
+    // change to forEach method?
     for(var i=0;i < linkedListSpace.childNodes.length;i++){
         i===0 ? linkedListSpace.childNodes[i].style.textDecoration="underline": linkedListSpace.childNodes[i].style.textDecoration="none"
     }
@@ -120,25 +135,16 @@ function updateRoot(){
 
 
 function addNode(){
-
-    //LLMethods.style.display='block'
-    LLMethods.classList.add('animate__animated','animate__fadeIn')
     let nodeToAdd = new Node(createNodes())
     LL.add(nodeToAdd)
 
     if (LL.size === 0){
         linkedListSpace.innerHTML = ""
     } else {
-        arrowDiv = createArrows()
-        linkedListSpace.insertBefore(arrowDiv,linkedListSpace.childNodes[0])
+        insertArrowsBefore(RIGHT_ARROW_PATH)
     }
 
-    var newDiv = document.createElement('div')
-    newDiv.id = `${LL.size}-${nodeToAdd.value.value}`
-    newDiv.className = 'col-2 text-center animate__animated animate__fadeInDown mt-3'
-    newDiv.innerHTML = `<div class="card"><h3 class="card-header">Node</h3><div class="card-body"><h4><span class="align-middle">Value: ${nodeToAdd.value.value}</span></h4></div></div>`
-    newDiv.style.width = "4rem"
-    linkedListSpace.insertBefore(newDiv,linkedListSpace.childNodes[0])
+    createNodeDiv(nodeToAdd)
 
     updateRoot()
     
@@ -148,11 +154,24 @@ function randomIntFromInterval(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function insertArrowsBefore(arrowPath){
+    arrowDiv = createArrows(arrowPath)
+    linkedListSpace.insertBefore(arrowDiv,linkedListSpace.childNodes[0])
+}
 
-function createArrows(){
+function createNodeDiv(nodeToAdd){
+    var newDiv = document.createElement('div')
+    newDiv.id = `${LL.size}-${nodeToAdd.value.value}`
+    newDiv.className = 'col-2 text-center animate__animated animate__fadeInDown mt-3'
+    newDiv.innerHTML = `<div class="card"><h3 class="card-header">Node</h3><div class="card-body"><h4><span class="align-middle">Value: ${nodeToAdd.value.value}</span></h4></div></div>`
+    linkedListSpace.insertBefore(newDiv,linkedListSpace.childNodes[0])
+}
+
+
+function createArrows(arrowPath){
     var arrowDiv = document.createElement('div')
     arrowDiv.className= "col-1 animate__animated animate__fadeInDown d-flex align-items-center arrow"
-    arrowDiv.innerHTML = `<img class="mx-auto" src=${RIGHT_ARROW_PATH} height="25px" />`
+    arrowDiv.innerHTML = `<img class="mx-auto" src=${arrowPath} height="25px" />`
     return arrowDiv
 }
 
