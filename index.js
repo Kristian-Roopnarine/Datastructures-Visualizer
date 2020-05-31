@@ -28,7 +28,7 @@ function animateFindNodes(){
             turnNodeToRed(i,linkedListNodes)
         }
         setTimeout(()=>{
-            turnNodeTogreen(position,nodeValueInput)
+            turnNodeToGreen(position,nodeValueInput,linkedListNodes)
         },270*position-2)
 
     } else {
@@ -37,8 +37,8 @@ function animateFindNodes(){
 
 }
 
-function turnNodeTogreen(position,nodeValue){
-    linkedListNodes[position-1].firstChild.classList.add('bg-success')
+function turnNodeToGreen(position,nodeValue,nodeList){
+    nodeList[position-1].firstChild.classList.add('bg-success')
     feedbackDiv.innerHTML = `<h2 class="text-center">Found a Node with the value of ${nodeValue} at position ${position}</h2>`
 }
 
@@ -56,8 +56,8 @@ function animateNodeRemoval(position,nodeList){
     nodeList[position-1].classList.add('animate__fadeOut')
 }
 
-function removeNodeAndArrowDiv(position,arrowDivList){
-    linkedListSpace.removeChild(linkedListNodes[position-1])
+function removeNodeAndArrowDiv(position,arrowDivList,nodeList){
+    linkedListSpace.removeChild(nodeList[position-1])
     linkedListSpace.removeChild(arrowDivList[position-1])
 }
 
@@ -75,7 +75,7 @@ function deleteNode(){
         animateNodeRemoval(position,linkedListNodes)
 
         setTimeout(()=>{
-            removeNodeDiv(position,arrowDivs)
+            removeNodeAndArrowDiv(position,arrowDivs,linkedListNodes)
             feedbackDiv.innerHTML = `<h2 class="text-center">Removed a Node with the value of ${nodeValueInput} at position ${position}</h2>`
             updateRoot()
         },1000)
