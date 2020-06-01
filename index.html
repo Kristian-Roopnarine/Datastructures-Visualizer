@@ -14,7 +14,14 @@
 
 <body>
 
-    <div class="fluid-container text-center">
+    
+    <div class="container" id="choose-ds">
+        <h2>What data structure would you like to visualize?</h2>
+        <button type="button" class="btn btn-primary" id="linked-list">Linked List</button>
+    </div>
+
+    
+    <div class="fluid-container text-center d-none" id="display-linked-list">
         <!--
             Linked List
             Create Linked List
@@ -23,13 +30,13 @@
             Delete node -> search bar
             Insert node -> two search bars.. one for new value and value after
         -->
-        <div class="btn-group" role="group" aria-label="linked-list-initialize">
-            <button type="button" class="btn btn-success" id="new-linked-list">Initialize Linked List</button>
-            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
-            <div class="dropdown-menu py-0">
-                <div id="linked-list-methods">
-                    <pre class="py-0 my-0">
-                        <code class="language-js my-0">
+                <div class="btn-group" role="group" aria-label="linked-list-initialize">
+                    <button type="button" class="btn btn-success" id="new-linked-list">Initialize Linked List</button>
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+                    <div class="dropdown-menu py-0">
+                        <div id="linked-list-methods">
+                            <pre class="py-0 my-0">
+                                <code class="language-js my-0">
 class LinkedList {
     constructor(r=null){
         this.root = r
@@ -38,20 +45,20 @@ class LinkedList {
 }
 
 let LL = new LinkedList()
-                        </code>
-                    </pre>
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="btn-group" role="group" aria-label="linked-list-add">
-            <button type="button" class="btn btn-primary" id="new-node">Add random integer Node to Linked List</button>
-            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+                <div class="btn-group" role="group" aria-label="linked-list-add">
+                    <button type="button" class="btn btn-primary" id="new-node">Add random integer Node to Linked List</button>
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
 
-            <div class="dropdown-menu py-0">
-                <div id="linked-list-methods">
-                    <pre class="py-0 my-0">
-                        <code class="language-js my-0">
+                    <div class="dropdown-menu py-0">
+                        <div id="linked-list-methods">
+                            <pre class="py-0 my-0">
+                                <code class="language-js my-0">
 class Node {
     constructor(value){
         this.value=value
@@ -77,22 +84,21 @@ add(node){
     }
     this.size++
 }
-                        </code>
-                    </pre>
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <input type="number" placeholder="Node Value to Find/Delete/Insert" id="node-integer-value">
 
 
-        <div class="btn-group" role="group" aria-label="linked-list-find">
-            <button type="button" class="btn btn-warning" id="find-linked-list">Find Node</button>
-            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
-            <div class="dropdown-menu py-0">
-                <div id="linked-list-methods">
-                    <pre class="py-0 my-0">
-                        <code class="language-js my-0">
+                <div class="btn-group" role="group" aria-label="linked-list-find">
+                    <input type="number" placeholder="Node Value to find" id="node-find">
+                    <button type="button" class="btn btn-warning" id="find-linked-list">Find Node</button>
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+                    <div class="dropdown-menu py-0">
+                        <div id="linked-list-methods">
+                            <pre class="py-0 my-0">
+                                <code class="language-js my-0">
 // Linked List class method
 
 find(value){
@@ -107,20 +113,21 @@ find(value){
     return false
 }
 
-                        </code>
-                    </pre>
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="btn-group" role="group" aria-label="linked-list-delete">
-            <button type="button" class="btn btn-danger" id="delete-linked-list-node">Delete Node</button>
-            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
-            <div class="dropdown-menu py-0">
-                <div id="linked-list-methods">
-                    <pre class="py-0 my-0">
-                        <code class="language-js my-0">
-// Linked List class method
+                <div class="btn-group" role="group" aria-label="linked-list-delete">
+                    <input type="number" placeholder="Node Value to delete" id="node-delete">
+                    <button type="button" class="btn btn-danger" id="delete-linked-list-node">Delete Node</button>
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+                    <div class="dropdown-menu py-0">
+                        <div id="linked-list-methods">
+                            <pre class="py-0 my-0">
+                                <code class="language-js my-0">
+        // Linked List class method
 
 delete(value){
     let thisNode = this.root
@@ -146,58 +153,61 @@ delete(value){
     return false
 }
 
-                        </code>
-                    </pre>
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="btn-group" role="group" aria-label="linked-list-insert">
-            <button type="button" class="btn btn-info" id="insert-linked-list">Insert Node</button>
-            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
-            <div class="dropdown-menu py-0">
-                <div id="linked-list-methods">
-                    <pre class="py-0 my-0">
-                        <code class="language-js my-0">
+                <div class="btn-group mt-2" role="group" aria-label="linked-list-insert">
+                    <input type="number" placeholder="Node Value to Insert" id="node-insert">
+                    <input class="ml-2" type="number" placeholder="Position" id="node-position">
+                    <button type="button" class="btn btn-info" id="insert-linked-list">Insert Node</button>
+                    <button type="button" class="btn btn-dark dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Code</button>
+                    <div class="dropdown-menu py-0">
+                        <div id="linked-list-methods">
+                            <pre class="py-0 my-0">
+                                <code class="language-js my-0">
 // Linked List class method
 
-insertBefore(valueToFind,nodeToInsert){
+insertBeforeAtPosition(nodeToInsert,insertPosition){
     let thisNode = this.root
     let prevNode = null
+    position = 1
 
-    while (thisNode !== null) {
-        if (valueToFind === thisNode.value){
-            if (prevNode === null){
-                this.add(nodeToInsert)
-            } else {
-                nodeToInsert.next = prevNode.next
-                prevNode.next = nodeToInsert
-                return
-            }
+    while (thisNode !== null){
+        if (insertPosition === position){
+            nodeToInsert.next = thisNode
+            prevNode.next = nodeToInsert
+            return 
         } else {
             prevNode = thisNode
             thisNode = thisNode.next
+            position++
         }
     }
     return false
 }
 
-                        </code>
-                    </pre>
+// get values from input
+let nodeToAdd = new Node(parseInt(document.getElementById('node-insert').value))
+let nodePosition = parseInt(document.getElementById('node-position').value)
+
+// insert to linked list
+LL.insertBeforeAtPosition(nodeToAdd,nodePosition)
+
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
                 </div>
+            
+            <div class="row m-0 justify-content-center clearfix" id="feedback">
             </div>
-        </div>
+    
+            <div class="row m-0 clearfix" id="linked-list-space">
+            </div>
 
-        <div class="row m-0 justify-content-center" id="feedback">
-        </div>
-
-        <div class="row m-0" id="linked-list-space">
-        </div>
-
-    </div>
-
-
-    <div class="fluid-container">
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

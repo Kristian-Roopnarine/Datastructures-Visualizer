@@ -1,4 +1,5 @@
 let RIGHT_ARROW_PATH = './right-arrow.svg'
+let linkedListButton = document.getElementById('linked-list')
 let linkedListSpace = document.getElementById('linked-list-space')
 let newLinkedList = document.getElementById('new-linked-list')
 let newLLNode = document.getElementById('new-node')
@@ -6,19 +7,48 @@ let LLMethods = document.getElementById('linked-list-methods')
 let findNodeValue = document.getElementById('find-linked-list')
 let feedbackDiv = document.getElementById('feedback')
 let deleteLLNode = document.getElementById('delete-linked-list-node')
+let insertNodeLL = document.getElementById('insert-linked-list')
 let initializedLL = false
 
 newLinkedList.addEventListener('click',createLinkedList)
-newLLNode.addEventListener('click',addNode)
+newLLNode.addEventListener('click',addNodeDiv)
 findNodeValue.addEventListener('click',animateFindNodes)
 deleteLLNode.addEventListener('click',deleteNode)
+insertNodeLL.addEventListener('click',insertAtPosition)
+linkedListButton.addEventListener('click',openLinkedList)
 
+function openLinkedList(){
+    document.getElementById('display-linked-list').classList.remove('d-none')
+    document.getElementById('display-linked-list').classList.add('animate__animated','animate__fadeInUp')
 
+    document.getElementById('choose-ds').classList.add('d-none')
+
+}
+
+function insertAtPosition(){
+    let nodeToAdd = new Node(parseInt(document.getElementById('node-insert').value))
+    let nodePosition = parseInt(document.getElementById('node-position').value)
+    LL.insertBeforeAtPosition(nodeToAdd,nodePosition)
+    findNodeDivPosition(nodeToAdd,RIGHT_ARROW_PATH,nodePosition)
+    LL.printValues()
+}
+
+function findNodeDivPosition(nodeToAdd,right_arrow_path,position){
+    let currentNodePosition = 0
+    for (var i = 0 ;i < linkedListSpace.childNodes.length ; i++){
+        if (linkedListSpace.childNodes[i].id.includes('node')){
+            currentNodePosition++
+            if (currentNodePosition === position){
+                insertArrowsBefore(right_arrow_path,i)
+                createNodeDiv(nodeToAdd,i)
+            }
+        }
+    }
+}
 
 function animateFindNodes(){
-    
     resetNodes()
-    let nodeValueInput = parseInt(document.getElementById('node-integer-value').value)
+    let nodeValueInput = parseInt(document.getElementById('node-find').value)
     let position = LL.find(nodeValueInput)
     if(position){
         feedbackDiv.innerHTML = `<h2 class="text-center">Searching for a Node with a value of ${nodeValueInput}.</h2>`
@@ -61,8 +91,9 @@ function removeNodeAndArrowDiv(position,arrowDivList,nodeList){
     linkedListSpace.removeChild(arrowDivList[position-1])
 }
 
+
 function deleteNode(){
-    let nodeValueInput = parseInt(document.getElementById('node-integer-value').value)
+    let nodeValueInput = parseInt(document.getElementById('node-delete').value)
     let position = LL.delete(nodeValueInput)
     LL.printValues()
 
@@ -76,7 +107,7 @@ function deleteNode(){
 
         setTimeout(()=>{
             removeNodeAndArrowDiv(position,arrowDivs,linkedListNodes)
-            feedbackDiv.innerHTML = `<h2 class="text-center">Removed a Node with the value of ${nodeValueInput} at position ${position}</h2>`
+            feedbackDiv.innerHTML =`<h2 class="text-center">Removed a Node with the value of ${nodeValueInput} at position ${position}</h2>`
             updateRoot()
         },1000)
         
@@ -133,19 +164,18 @@ function updateRoot(){
     }
 }
 
-
-function addNode(){
-    let nodeToAdd = new Node(createNodes())
+function addNodeDiv(){
+    let nodeToAdd = createNodes()
     LL.add(nodeToAdd)
+
 
     if (LL.size === 0){
         linkedListSpace.innerHTML = ""
     } else {
-        insertArrowsBefore(RIGHT_ARROW_PATH)
+        insertArrowsBefore(RIGHT_ARROW_PATH,0)
     }
 
-    createNodeDiv(nodeToAdd)
-
+    createNodeDiv(nodeToAdd,0)
     updateRoot()
     
 }
@@ -154,17 +184,17 @@ function randomIntFromInterval(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function insertArrowsBefore(arrowPath){
+function insertArrowsBefore(arrowPath,position){
     arrowDiv = createArrows(arrowPath)
-    linkedListSpace.insertBefore(arrowDiv,linkedListSpace.childNodes[0])
+    linkedListSpace.insertBefore(arrowDiv,linkedListSpace.childNodes[position])
 }
 
-function createNodeDiv(nodeToAdd){
+function createNodeDiv(nodeToAdd,position){
     var newDiv = document.createElement('div')
-    newDiv.id = `${LL.size}-${nodeToAdd.value.value}`
+    newDiv.id = `node-${LL.size}-${nodeToAdd.value}`
     newDiv.className = 'col-2 text-center animate__animated animate__fadeInDown mt-3'
-    newDiv.innerHTML = `<div class="card"><h3 class="card-header">Node</h3><div class="card-body"><h4><span class="align-middle">Value: ${nodeToAdd.value.value}</span></h4></div></div>`
-    linkedListSpace.insertBefore(newDiv,linkedListSpace.childNodes[0])
+    newDiv.innerHTML = `<div class="card"><h3 class="card-header">Node</h3><div class="card-body"><h4><span class="align-middle">Value: ${nodeToAdd.value}</span></h4></div></div>`
+    linkedListSpace.insertBefore(newDiv,linkedListSpace.childNodes[position])
 }
 
 

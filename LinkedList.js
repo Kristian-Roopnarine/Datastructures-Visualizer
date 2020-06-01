@@ -47,7 +47,7 @@ class LinkedList {
         let thisNode = this.root
         let position = 1
         while (thisNode !== null){
-            if (thisNode.value.value === value){
+            if (thisNode.value === value){
                 return position
             } else {
                 thisNode = thisNode.next
@@ -63,7 +63,7 @@ class LinkedList {
         let position = 1
 
         while (thisNode !== null){
-            if (thisNode.value.value === value){
+            if (thisNode.value === value){
                 if (prevNode === null){
                     this.root = thisNode.next
                     thisNode.next = null
@@ -99,6 +99,26 @@ class LinkedList {
             } else {
                 prevNode = thisNode
                 thisNode = thisNode.next
+                
+            }
+        }
+        return false
+    }
+
+    insertBeforeAtPosition(nodeToInsert,insertPosition){
+        let thisNode = this.root
+        let prevNode = null
+        let position = 1
+
+        while (thisNode !== null){
+            if (insertPosition === position){
+                nodeToInsert.next = thisNode
+                prevNode.next = nodeToInsert
+                return 
+            } else {
+                prevNode = thisNode
+                thisNode = thisNode.next
+                position++
             }
         }
         return false
@@ -108,7 +128,7 @@ class LinkedList {
         let thisNode=this.root
         console.log("Printing Nodes...")
         while(thisNode !== null){
-            console.log(`Node Value: ${thisNode.value.value} Next Node: ${thisNode.next}`)
+            console.log(`Node Value: ${thisNode.value} Next Node: ${thisNode.next}`)
             thisNode = thisNode.next
         }
     }
