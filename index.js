@@ -30,7 +30,8 @@ function insertAtPosition(){
     let nodePosition = parseInt(document.getElementById('node-position').value)
     LL.insertBeforeAtPosition(nodeToAdd,nodePosition)
     findNodeDivPosition(nodeToAdd,RIGHT_ARROW_PATH,nodePosition)
-    LL.printValues()
+    feedbackDiv.innerHTML = `<h2 class="text-center">Inserted a Node with a value of ${nodeToAdd.value} and position ${nodePosition}.</h2>`
+    
 }
 
 function findNodeDivPosition(nodeToAdd,right_arrow_path,position){
