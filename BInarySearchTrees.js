@@ -1,3 +1,7 @@
+const TREE_NODE_SPACE_X = 25
+const TREE_NODE_SPACE_Y = 25
+const X_OFFSET = 20
+
 class BTNode {
     constructor(val,x=0,y=0){
         this.val = val
@@ -13,6 +17,12 @@ class BTNode {
             if(this.left == null){
                 this.left = node
                 node.parent = this
+                if (node.parent.parent === null){
+                    node.updatePosition(this.x - (TREE_NODE_SPACE_X * 2),this.y + TREE_NODE_SPACE_Y)
+                } else {
+                    node.updatePosition(this.x - (TREE_NODE_SPACE_X),this.y + TREE_NODE_SPACE_Y)
+                }
+                
             } else {
                 this.left.addNode(node)
             }
@@ -21,10 +31,21 @@ class BTNode {
             if (this.right == null){
                 this.right = node
                 node.parent = this
+                if (node.parent.parent === null){
+                    node.updatePosition(this.x + (TREE_NODE_SPACE_X * 2),this.y + TREE_NODE_SPACE_Y)
+                } else {
+                    node.updatePosition(this.x + (TREE_NODE_SPACE_X),this.y + TREE_NODE_SPACE_Y)
+                }
             } else {
                 this.right.addNode(node)
             } 
-        } 
+        }
+    
+    }
+
+    updatePosition(x=0,y=0){
+        this.x = x
+        this.y = y
     }
 
     searchNode(node){

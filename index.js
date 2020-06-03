@@ -227,9 +227,9 @@ let c = document.getElementById('binary-tree-space')
 let initializeBT = document.getElementById('initialize-bt')
 let binaryTreeFeedback = document.getElementById('bt-feedback')
 
-const STARTING_X =250
+const STARTING_X = 250
 const STARTING_Y = 50
-const RADIUS = 20
+const RADIUS = 10
 
 initializeBT.addEventListener('click',createBinaryTree)
 addTreeNodeButton.addEventListener('click',addTreeNode)
@@ -242,19 +242,25 @@ function openBinarySearchTrees(){
     document.getElementById('choose-ds').classList.add('d-none')
 }
 
-function drawTreeNode(x,y,radius){
+function drawTreeNode(x,y,radius,value){
     var ctx = c.getContext("2d")
     ctx.beginPath()
-    ctx.arc(250,50,20,0,2*Math.PI)
+    ctx.arc(x,y,radius,0,2*Math.PI)
+    ctx.fillText(value,x-radius/2,y+radius/2)
     ctx.stroke()
 }
 
 function addTreeNode(){
     // create new node with number
     let btNode = new BTNode(val = randomIntFromInterval(1,99))
+    if (BT.size === 0){
+        btNode.x = STARTING_X
+        btNode.y = STARTING_Y
+    }
     // add to binary tree
     BT.addTreeNode(btNode)
     console.log(BT)
+    drawTreeNode(btNode.x,btNode.y,RADIUS,btNode.val)
 }
 
 
