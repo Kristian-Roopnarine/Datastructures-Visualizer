@@ -1,14 +1,18 @@
-class Node {
-    constructor(val){
+class BTNode {
+    constructor(val,x=0,y=0){
         this.val = val
         this.right = null
         this.left = null
+        this.parent = null
+        this.x = x
+        this.y = y
     }
 
     addNode(node){
         if (node.val < this.val){
             if(this.left == null){
                 this.left = node
+                node.parent = this
             } else {
                 this.left.addNode(node)
             }
@@ -16,6 +20,7 @@ class Node {
         } else if (node.val > this.val){
             if (this.right == null){
                 this.right = node
+                node.parent = this
             } else {
                 this.right.addNode(node)
             } 
@@ -41,6 +46,25 @@ class Node {
 class BinarySearchTree{
     constructor(r=null){
         this.root = r
+        this.size = 0
+    }
+
+    addTreeNode(node){
+        if(this.root === null){
+            this.root = node
+        }
+
+        this.root.addNode(node)
+        this.updateSize("add")
+    }
+
+    updateSize(type){
+        if (type === "add"){
+            this.size++
+        }
+        if (type === "sub"){
+            this.size--
+        }
     }
 }
 

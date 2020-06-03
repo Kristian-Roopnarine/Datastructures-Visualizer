@@ -18,9 +18,34 @@
     <div class="container" id="choose-ds">
         <h2>What data structure would you like to visualize?</h2>
         <button type="button" class="btn btn-primary" id="linked-list">Linked List</button>
+        <button type="button" class="btn btn-success" id="binary-trees">Binary Search Trees</button>
     </div>
 
-    
+    <!--BINARY SEARCH TREES-->
+    <div class="fluid-container text-center d-none" id="display-binary-trees">
+        <div class="row justify-content-center">
+            <button class="btn btn-success" id="initialize-bt">
+                Initialize Binary Tree
+            </button>
+            <button class="btn btn-primary" id="add-tree-node">
+            Add node
+            </button>
+        </div>
+        <div class="row justify-content-center">
+            <h2 id="bt-feedback">
+
+            </h2>
+        </div>
+        
+        <canvas id="binary-tree-space" width="500" height="500" style="border:1px solid #000000;">
+        </canvas>
+        
+    </div>
+
+
+
+
+    <!-- LINKED LISTS -->
     <div class="fluid-container text-center d-none" id="display-linked-list">
         <!--
             Linked List
@@ -215,6 +240,7 @@ LL.insertBeforeAtPosition(nodeToAdd,nodePosition)
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="index.js"></script>
     <script src="LinkedList.js"></script>
+    <script src="BInarySearchTrees.js"></script>
     <script src="prism.js"></script>
     
     

@@ -17,6 +17,15 @@ deleteLLNode.addEventListener('click',deleteNode)
 insertNodeLL.addEventListener('click',insertAtPosition)
 linkedListButton.addEventListener('click',openLinkedList)
 
+
+
+/////////////////////////
+//
+//  LINKED LISTS
+//
+////////////////////////
+
+
 function openLinkedList(){
     document.getElementById('display-linked-list').classList.remove('d-none')
     document.getElementById('display-linked-list').classList.add('animate__animated','animate__fadeInUp')
@@ -206,3 +215,54 @@ function createArrows(arrowPath){
     return arrowDiv
 }
 
+/////////////////////////
+//
+//  BINARY SEARCH TREES
+//
+////////////////////////
+
+let binarySearchTreeButton = document.getElementById('binary-trees')
+let addTreeNodeButton = document.getElementById('add-tree-node')
+let c = document.getElementById('binary-tree-space')
+let initializeBT = document.getElementById('initialize-bt')
+let binaryTreeFeedback = document.getElementById('bt-feedback')
+
+const STARTING_X =250
+const STARTING_Y = 50
+const RADIUS = 20
+
+initializeBT.addEventListener('click',createBinaryTree)
+addTreeNodeButton.addEventListener('click',addTreeNode)
+binarySearchTreeButton.addEventListener('click',openBinarySearchTrees)
+
+function openBinarySearchTrees(){
+    document.getElementById('display-binary-trees').classList.remove('d-none')
+    document.getElementById('display-binary-trees').classList.add('animate__animated','animate__fadeInUp')
+
+    document.getElementById('choose-ds').classList.add('d-none')
+}
+
+function drawTreeNode(x,y,radius){
+    var ctx = c.getContext("2d")
+    ctx.beginPath()
+    ctx.arc(250,50,20,0,2*Math.PI)
+    ctx.stroke()
+}
+
+function addTreeNode(){
+    // create new node with number
+    let btNode = new BTNode(val = randomIntFromInterval(1,99))
+    // add to binary tree
+    BT.addTreeNode(btNode)
+    console.log(BT)
+}
+
+
+function createBinaryTree(){
+    BT = new BinarySearchTree()
+    binaryTreeFeedback.innerHTML = "Successfully created Binary Tree. You can add nodes to this tree now."
+}
+
+function randomIntFromInterval(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
