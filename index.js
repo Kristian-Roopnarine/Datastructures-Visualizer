@@ -226,6 +226,8 @@ let addTreeNodeButton = document.getElementById('add-tree-node')
 let c = document.getElementById('binary-tree-space')
 let initializeBT = document.getElementById('initialize-bt')
 let binaryTreeFeedback = document.getElementById('bt-feedback')
+let depthFirstSearchButton = document.getElementById('depth-first-search')
+let breadthFirstSearchButton = document.getElementById('breadth-first-search')
 
 const STARTING_X = 250
 const STARTING_Y = 50
@@ -234,11 +236,22 @@ const RADIUS = 10
 initializeBT.addEventListener('click',createBinaryTree)
 addTreeNodeButton.addEventListener('click',addTreeNode)
 binarySearchTreeButton.addEventListener('click',openBinarySearchTrees)
+depthFirstSearchButton.addEventListener('click',startDepthFirstSearch)
+breadthFirstSearchButton.addEventListener('click',startBreadthFirstSearch)
+
+function startDepthFirstSearch(){
+    let tree_items=[]
+    console.log(BT.depthFirstSearch(tree_items,BT.root))
+}
+
+function startBreadthFirstSearch(){
+    let tree_items = []
+    console.log(BT.breadthFirstSearch(tree_items,BT.root))
+}
 
 function openBinarySearchTrees(){
     document.getElementById('display-binary-trees').classList.remove('d-none')
     document.getElementById('display-binary-trees').classList.add('animate__animated','animate__fadeInUp')
-
     document.getElementById('choose-ds').classList.add('d-none')
 }
 
@@ -247,6 +260,7 @@ function drawTreeNode(x,y,radius,value){
     ctx.beginPath()
     ctx.arc(x,y,radius,0,2*Math.PI)
     ctx.fillText(value,x-radius/2,y+radius/2)
+    ctx.strokeStyle = "blue"
     ctx.stroke()
 }
 
@@ -269,6 +283,3 @@ function createBinaryTree(){
     binaryTreeFeedback.innerHTML = "Successfully created Binary Tree. You can add nodes to this tree now."
 }
 
-function randomIntFromInterval(min,max){
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}

@@ -17,11 +17,7 @@ class BTNode {
             if(this.left == null){
                 this.left = node
                 node.parent = this
-                if (node.parent.parent === null){
-                    node.updatePosition(this.x - (TREE_NODE_SPACE_X * 2),this.y + TREE_NODE_SPACE_Y)
-                } else {
-                    node.updatePosition(this.x - (TREE_NODE_SPACE_X),this.y + TREE_NODE_SPACE_Y)
-                }
+                node.updatePosition(this.x - TREE_NODE_SPACE_X,this.y + TREE_NODE_SPACE_Y)
                 
             } else {
                 this.left.addNode(node)
@@ -31,11 +27,7 @@ class BTNode {
             if (this.right == null){
                 this.right = node
                 node.parent = this
-                if (node.parent.parent === null){
-                    node.updatePosition(this.x + (TREE_NODE_SPACE_X * 2),this.y + TREE_NODE_SPACE_Y)
-                } else {
-                    node.updatePosition(this.x + (TREE_NODE_SPACE_X),this.y + TREE_NODE_SPACE_Y)
-                }
+                node.updatePosition(this.x + TREE_NODE_SPACE_X,this.y + TREE_NODE_SPACE_Y)
             } else {
                 this.right.addNode(node)
             } 
@@ -86,6 +78,41 @@ class BinarySearchTree{
         if (type === "sub"){
             this.size--
         }
+    }
+
+    depthFirstSearch(array,node){
+        array.push(node.val)
+        let children = []
+        if (node.left){
+            children.push(node.left)
+        }
+        if (node.right){
+            children.push(node.right)
+        }
+        for (const child of children){
+            this.depthFirstSearch(array,child)
+        }
+
+        return array
+    }
+
+    breadthFirstSearch(array,node){
+        // put the node into a queue
+        let queue = [node]
+
+        while (queue.length !== 0){
+            // pop node out
+            const currentNode = queue.shift()
+
+            // put value into array
+            array.push(currentNode.val)
+
+            // add children to queue
+            if (currentNode.left) queue.push(currentNode.left)
+            if (currentNode.right) queue.push(currentNode.right)
+        }
+        
+        return array
     }
 }
 
