@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import DataStructures from './components/datastructures/DataStructures'
+import {MDBBtn,MDBContainer} from 'mdbreact'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component{
+  state = {hideButtons:false,dataStructure:null}
+
+  
+
+  hideOnClick = (e) => {
+    this.setState({dataStructure:e.target.value,hideButtons:!this.state.hideButtons})
+  }
+
+  render() {
+    const hideDiv = this.state.hideButtons
+    let homeDiv;
+    if (!hideDiv){
+      homeDiv = <MDBContainer>
+      <MDBBtn color="primary" value="Linked List" onClick={this.hideOnClick}>Linked Lists</MDBBtn>
+      <MDBBtn color="primary" value="Binary Search Tree" onClick={this.hideOnClick}>Binary Search Trees</MDBBtn>
+      </MDBContainer>
+    } else {
+      homeDiv = <DataStructures type={this.state.dataStructure}/>
+    }
+    return (
+      <>
+        {homeDiv}
+      </>
+    );
+  }
 }
 
 export default App;
