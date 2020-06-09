@@ -1,5 +1,6 @@
 import React from 'react'
 import rightArrow from './right-arrow.svg'
+import LinkedListNodes from './LinkedListNodes'
 import {MDBCard,MDBCardTitle,MDBCardText,MDBCardBody,MDBCol} from 'mdbreact'
 
 
@@ -13,21 +14,10 @@ class LinkedListSpace extends React.Component{
         //let renderArray = []
         //this.traverseLinkedList(renderArray)
         
-        return this.props.linkedList.map((number,index)=>{
+        return this.props.linkedList.map((node,index)=>{
             return(
                     <>
-                        <MDBCol size="2" key={index} className="mt-2 nodes">
-                            <MDBCard>
-                                <MDBCardBody>
-                                    <MDBCardTitle tag="h5">
-                                        Node
-                                    </MDBCardTitle>
-                                    <MDBCardText>
-                                        Value: {number}
-                                    </MDBCardText>
-                                </MDBCardBody>
-                            </MDBCard>
-                        </MDBCol>
+                        <LinkedListNodes value={node.nodeValue} idx={index} currentClass={node.currentClass}/>
                         
                         <MDBCol size="1" className="d-flex align-items-center arrows">
                                 <img src={rightArrow} height="25px" className="mx-auto" />

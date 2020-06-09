@@ -21,6 +21,7 @@ class LinkedLists extends React.Component{
         let nodeToFind = parseInt(this.state.findNode)
         let position = this.state.LL.find(nodeToFind)
         if(position){
+            this.resetNodes()
             this.setState({
                 ...this.state,
                 feedBack:`Found a node with the value of ${nodeToFind} at position ${position}`
@@ -31,7 +32,7 @@ class LinkedLists extends React.Component{
                 feedBack:`Could not find a node with the value of ${nodeToFind}.`
             })
         }
-        this.resetNodeDivs('bg-success')
+        
         this.animateNode(position,'bg-success')
     }
 
@@ -59,19 +60,12 @@ class LinkedLists extends React.Component{
                     feedBack:`Deleted a node with the value of ${nodeToDelete} at position ${position}`
                 })
             },600)
-        
-            /*
-            setTimeout(()=>{
-                this.removeNodeAndArrowDiv(position)
-            },1000)
-            */
         } else {
             this.setState({
                 ...this.state,
                 feedBack:`Could not find a node with the value of ${nodeToDelete}.`
             })
         }
-        console.log(this.state.renderArray)
     }
 
     animateDeleteNode = (position) => {
@@ -86,28 +80,72 @@ class LinkedLists extends React.Component{
     }
 
     animateNode = (position,className=null) => {
-        const nodeDivs = document.getElementsByClassName('nodes')
-        for(var i = 0 ; i < nodeDivs.length ;i++){
-            if (i === position-1){
-                nodeDivs[i].firstChild.classList.add(className)
-            } 
+        
+        setTimeout(()=>{
+            const newArray = this.state.renderArray.map((node,index)=> {
+                if (index === position-1){
+                    node.currentClass = node.currentClass.concat(className)
+                    return node
+                } else {
+                    return node
+                }
+            })
+
+            this.setState({
+                ...this.state,
+                renderArray:newArray
+            })
+        },700*position)
+        
+        for(var i = 0 ; i < position-1 ;i++){
+            this.turnNodeToRed(i)
         }
+        
     }
 
-    resetNodeDivs = (className) =>{
-        const nodeDivs = document.getElementsByClassName('nodes')
-        const arrowDivs = document.getElementsByClassName('arrows')
-        for(var i = 0 ; i < nodeDivs.length ;i++){
-                nodeDivs[i].firstChild.classList.remove(className)
-            } 
-        }
+    turnNodeToRed= (i) =>{
+        setTimeout(()=>{
+            this.state.renderArray[i].currentClass = this.state.renderArray[i].currentClass.concat('bg-danger')
+            this.setState({
+                ...this.state,
+                renderArray:[...this.state.renderArray]
+            })
+            this.turnNodeToNormal(i)
+        },750 * i)
+    }
+
+    turnNodeToNormal=(i)=>{
+        setTimeout(()=>{
+            this.state.renderArray[i].currentClass = this.state.renderArray[i].currentClass.slice(0,2)
+            this.setState({
+                ...this.state,
+                renderArray:[...this.state.renderArray]
+            })
+        },700)
+    }
+
+    turnNodeToGreen(i,array){
+        array[i].firstChild.classList.toggle('bg-success')
+    }
+
+    resetNodes = () =>{
+        let newArray = this.state.renderArray.map(node =>{
+            node.currentClass = node.currentClass.slice(0,2)
+            return node
+        })
+        this.setState({
+            ...this.state,
+            renderArray:newArray
+        })
+    }
     
 
     addNode = () => {
+        this.resetNodes()
         let newNode = createNodes()
         let middleLL = this.state.LL
         middleLL.add(newNode)
-        let list = [newNode.value,...this.state.renderArray]
+        let list = [{nodeValue:newNode.value,currentClass:["mt-2","nodes"]},...this.state.renderArray]
         this.setState({...this.state,LL:middleLL,renderArray:list})
     }
 
