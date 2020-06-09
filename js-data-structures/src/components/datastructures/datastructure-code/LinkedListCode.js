@@ -5,7 +5,7 @@ Nodes
 Attributes: value, next
 */
 
-class Node {
+export class Node {
     constructor(value){
         this.value=value
         this.next=null
@@ -26,7 +26,7 @@ Insert (Inserts item to linked list)
 
 */
 
-class LinkedList {
+export class LinkedList {
     constructor(r=null){
         this.root = r
         this.size =0
@@ -35,7 +35,6 @@ class LinkedList {
     add(node){
         if (this.root === null){
             this.root = node
-            return
         } else {
             node.next = this.root
             this.root = node
@@ -134,19 +133,12 @@ class LinkedList {
     }
 }
 
-function randomIntFromInterval(min,max){
+export function randomIntFromInterval(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function createNodes(){
+export function createNodes(){
     return new Node(randomIntFromInterval(0,99))
 }   
-
-function createLinkedList(){
-    for (var i=0;i<6;i++){
-        testLinked.add(nodes[i])
-    }
-}
-
 
 //let LL = new LinkedList()

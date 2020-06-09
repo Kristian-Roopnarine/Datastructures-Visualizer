@@ -16,10 +16,8 @@ class App extends React.Component{
     const hideDiv = this.state.hideButtons
     let homeDiv;
     if (!hideDiv){
-      homeDiv = <MDBContainer>
-      <MDBBtn color="primary" value="Linked List" onClick={this.hideOnClick}>Linked Lists</MDBBtn>
-      <MDBBtn color="primary" value="Binary Search Tree" onClick={this.hideOnClick}>Binary Search Trees</MDBBtn>
-      </MDBContainer>
+      homeDiv = <><MDBBtn color="primary" value="Linked List" onClick={this.hideOnClick}>Linked Lists</MDBBtn><MDBBtn color="primary" value="Binary Search Tree" onClick={this.hideOnClick}>Binary Search Trees</MDBBtn></>
+      
     } else {
       homeDiv = <DataStructures type={this.state.dataStructure}/>
     }
