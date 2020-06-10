@@ -1,8 +1,8 @@
-const TREE_NODE_SPACE_X = 25
-const TREE_NODE_SPACE_Y = 25
-const X_OFFSET = 20
+export const TREE_NODE_SPACE_X = 100
+export const TREE_NODE_SPACE_Y = 100
 
-class BTNode {
+
+export class BTNode {
     constructor(val,x=0,y=0){
         this.val = val
         this.right = null
@@ -10,6 +10,7 @@ class BTNode {
         this.parent = null
         this.x = x
         this.y = y
+        this.visited=false
     }
 
     addNode(node){
@@ -41,7 +42,7 @@ class BTNode {
     }
 
     searchNode(node){
-        currentNode = node
+        let currentNode = node
         while (currentNode !== null){
             if (node.val < this.val){
                 currentNode = currentNode.left
@@ -56,7 +57,7 @@ class BTNode {
 }
 
 
-class BinarySearchTree{
+export class BinarySearchTree{
     constructor(r=null){
         this.root = r
         this.size = 0
@@ -116,3 +117,6 @@ class BinarySearchTree{
     }
 }
 
+export function randomIntFromInterval(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
