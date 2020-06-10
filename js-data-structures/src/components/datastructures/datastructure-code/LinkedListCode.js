@@ -113,6 +113,7 @@ export class LinkedList {
             if (insertPosition === position){
                 nodeToInsert.next = thisNode
                 prevNode.next = nodeToInsert
+                this.size++
                 return 
             } else {
                 prevNode = thisNode

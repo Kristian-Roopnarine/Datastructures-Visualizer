@@ -1,6 +1,6 @@
 import React from 'react'
 import LinkedListSpace from './LinkedListSpace'
-import {MDBBtn,MDBContainer,MDBRow,MDBInput} from 'mdbreact'
+import {MDBBtn,MDBContainer,MDBRow,MDBInput,MDBCol} from 'mdbreact'
 import {LinkedList,Node,createNodes} from './datastructure-code/LinkedListCode'
 
 class LinkedLists extends React.Component{
@@ -14,6 +14,40 @@ class LinkedLists extends React.Component{
             this.setState({...this.state,feedBack:"Successfully created Linked list.",LL:new LinkedList()},()=>console.log(this.state.LL))
         } else {
             this.setState({...this.state,feedBack:"You've already created a linked list. You can add nodes to this data structure."})
+        }
+    }
+
+    // insert nodes
+    insertNode = () => {
+        
+        // only execute if there is a node value to insert and position
+        if (this.state.insertNode && this.state.position){
+            // create node to insert
+            let nodeToInsert = new Node(parseInt(this.state.insertNode))
+            // get position to insert
+            let position = parseInt(this.state.position)
+            
+            // insert to linked list
+            let middleLL = this.state.LL
+            middleLL.insertBeforeAtPosition(nodeToInsert,position)
+
+            // create element to add
+            let newNode = {nodeValue:nodeToInsert.value,currentClass:['mt-2','nodes','animated','zoomIn']}
+
+            // update state to insert node
+            let middleArray = this.state.renderArray
+            middleArray.splice(position-1,0,newNode)
+            
+            this.setState({
+                ...this.state,
+                LL:middleLL,
+                renderArray:middleArray
+            },()=>console.log(this.state.LL))
+
+            setTimeout(()=>{
+                this.resetNodes()
+            },1000)
+
         }
     }
 
@@ -80,7 +114,6 @@ class LinkedLists extends React.Component{
     }
 
     animateNode = (position,className=null) => {
-        
         setTimeout(()=>{
             const newArray = this.state.renderArray.map((node,index)=> {
                 if (index === position-1){
@@ -124,10 +157,6 @@ class LinkedLists extends React.Component{
         },700)
     }
 
-    turnNodeToGreen(i,array){
-        array[i].firstChild.classList.toggle('bg-success')
-    }
-
     resetNodes = () =>{
         let newArray = this.state.renderArray.map(node =>{
             node.currentClass = node.currentClass.slice(0,2)
@@ -141,12 +170,15 @@ class LinkedLists extends React.Component{
     
 
     addNode = () => {
-        this.resetNodes()
         let newNode = createNodes()
         let middleLL = this.state.LL
         middleLL.add(newNode)
-        let list = [{nodeValue:newNode.value,currentClass:["mt-2","nodes"]},...this.state.renderArray]
+        let list = [{nodeValue:newNode.value,currentClass:["mt-2","nodes",'animated','zoomIn']},...this.state.renderArray]
         this.setState({...this.state,LL:middleLL,renderArray:list})
+        setTimeout(()=>{
+            this.resetNodes()
+        },700)
+        
     }
 
     onInputChange = (e) =>{
@@ -156,28 +188,43 @@ class LinkedLists extends React.Component{
     render(){
         return(
             <MDBContainer>
-                <MDBBtn onClick={this.initializeLinkedList}>
-                    Initialize Linked List
-                </MDBBtn>
+                <MDBRow>
+                    <MDBCol>
+                        <MDBBtn onClick={this.initializeLinkedList}>
+                            Initialize Linked List
+                        </MDBBtn>
+                    </MDBCol>
+                    
+                    <MDBCol>
+                        <MDBBtn color="primary" onClick={this.addNode}>
+                            Add random integer node to Linked List
+                        </MDBBtn>
+                    </MDBCol>
+                    
+                    <MDBCol>
+                        <MDBInput label="Node to find" value={this.state.findNode} id="findNode" size="sm" onChange={this.onInputChange}></MDBInput>
+                        <MDBBtn  onClick={this.findNode} color="warning">
+                            Find Node
+                        </MDBBtn>
+                    </MDBCol>
+                    
+                    <MDBCol>
+                        <MDBInput label="Node to delete" value={this.state.deleteNode} size="sm" id="deleteNode" onChange={this.onInputChange}></MDBInput>
 
-                <MDBBtn color="primary" onClick={this.addNode}>
-                    Add random integer node to Linked List
-                </MDBBtn>
-
-                <MDBInput label="Node to find" value={this.state.findNode} id="findNode" onChange={this.onInputChange}></MDBInput>
-                <MDBBtn  onClick={this.findNode} color="warning">
-                    Find Node
-                </MDBBtn>
-
-                <MDBInput label="Node to delete" value={this.state.deleteNode} id="deleteNode" onChange={this.onInputChange}></MDBInput>
-
-                <MDBBtn color="danger" onClick={this.deleteNode}>
-                    Delete Node
-                </MDBBtn>
-
-                <MDBBtn color="info">
-                    Insert Node before position
-                </MDBBtn>
+                        <MDBBtn color="danger" onClick={this.deleteNode}>
+                            Delete Node
+                        </MDBBtn>
+                    </MDBCol>
+                    
+                    <MDBCol>
+                        <MDBInput label="Node to insert" value={this.state.insertNode} size="sm" id="insertNode" onChange={this.onInputChange}></MDBInput>
+                        <MDBInput label="Position to insert" value={this.state.position} size="sm" id="position" onChange={this.onInputChange}></MDBInput>
+                        <MDBBtn color="info" onClick={this.insertNode}>
+                            Insert Node before position
+                        </MDBBtn>
+                    </MDBCol>
+                    
+                </MDBRow>
 
                 <MDBRow>
                     <h3>{this.state.feedBack}</h3>
