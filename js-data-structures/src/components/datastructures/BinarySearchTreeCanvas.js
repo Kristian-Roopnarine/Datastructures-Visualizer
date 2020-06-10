@@ -26,8 +26,9 @@ class BinarySearchTreeCanvas extends React.Component{
                     key = {currentNode.x,currentNode.val}
                     x = {currentNode.x}
                     y = {currentNode.y}
-                    r={40}
+                    r={20}
                     stroke={"green"}
+                    node = {currentNode}
                     nodeValue = {currentNode.val}
                 />
             )
@@ -43,7 +44,6 @@ class BinarySearchTreeCanvas extends React.Component{
     render(){
         return(
             <>
-                <div>Nodes will go here</div>
                 <svg width={1000} height={1000}>
                     {this.renderBinarySearchTree()}
                 </svg>

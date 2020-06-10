@@ -1,5 +1,5 @@
-export const TREE_NODE_SPACE_X = 100
-export const TREE_NODE_SPACE_Y = 100
+export const TREE_NODE_SPACE_X = 50
+export const TREE_NODE_SPACE_Y = 75
 
 
 export class BTNode {
@@ -11,6 +11,7 @@ export class BTNode {
         this.x = x
         this.y = y
         this.visited=false
+        this.depth = 0
     }
 
     addNode(node){
@@ -18,8 +19,11 @@ export class BTNode {
             if(this.left == null){
                 this.left = node
                 node.parent = this
-                node.updatePosition(this.x - TREE_NODE_SPACE_X,this.y + TREE_NODE_SPACE_Y)
+                node.depth = this.depth + 1
+    
+                node.updatePosition(this.x - TREE_NODE_SPACE_X, this.y + TREE_NODE_SPACE_Y)
                 
+                      
             } else {
                 this.left.addNode(node)
             }
@@ -28,7 +32,11 @@ export class BTNode {
             if (this.right == null){
                 this.right = node
                 node.parent = this
-                node.updatePosition(this.x + TREE_NODE_SPACE_X,this.y + TREE_NODE_SPACE_Y)
+                node.depth = this.depth + 1
+        
+                node.updatePosition(this.x + TREE_NODE_SPACE_X, this.y + TREE_NODE_SPACE_Y)
+                 
+                
             } else {
                 this.right.addNode(node)
             } 
@@ -67,7 +75,6 @@ export class BinarySearchTree{
         if(this.root === null){
             this.root = node
         }
-
         this.root.addNode(node)
         this.updateSize("add")
     }

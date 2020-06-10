@@ -24,6 +24,7 @@ class BinarySearchTrees extends React.Component {
             treeNode.y = STARTING_Y
         }
         this.state.BST.addTreeNode(treeNode)
+        console.log(treeNode.depth)
         // force re render
         this.forceUpdate()
         console.log(this.state.BST)

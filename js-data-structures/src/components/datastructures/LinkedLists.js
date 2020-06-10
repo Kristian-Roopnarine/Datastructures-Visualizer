@@ -6,16 +6,9 @@ import {LinkedList,Node,createNodes} from './datastructure-code/LinkedListCode'
 class LinkedLists extends React.Component{
     constructor(props){
         super(props)
-        this.state = {feedBack:"", LL:false,renderArray:[],findNode:"",insertNode:"",position:"",deleteNode:""}
+        this.state = {feedBack:" You can add nodes to this data structure.", LL:new LinkedList(),renderArray:[],findNode:"",insertNode:"",position:"",deleteNode:""}
     }
 
-    initializeLinkedList = () => {
-        if (this.state.LL === false){
-            this.setState({...this.state,feedBack:"Successfully created Linked list.",LL:new LinkedList()},()=>console.log(this.state.LL))
-        } else {
-            this.setState({...this.state,feedBack:"You've already created a linked list. You can add nodes to this data structure."})
-        }
-    }
 
     // insert nodes
     insertNode = () => {
@@ -189,12 +182,6 @@ class LinkedLists extends React.Component{
         return(
             <MDBContainer>
                 <MDBRow>
-                    <MDBCol>
-                        <MDBBtn onClick={this.initializeLinkedList}>
-                            Initialize Linked List
-                        </MDBBtn>
-                    </MDBCol>
-                    
                     <MDBCol>
                         <MDBBtn color="primary" onClick={this.addNode}>
                             Add random integer node to Linked List
