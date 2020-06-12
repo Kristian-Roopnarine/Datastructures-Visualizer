@@ -5,8 +5,29 @@ class BinarySearchTreeNodes extends React.Component{
         super(props)
     }
 
+    state = {
+        x:null,
+        y:null,
+        r:null,
+        stroke:"red",
+        node:null,
+        nodeValue:null
+    }
+
+    componentDidMount(){
+        const {x,y,r,stroke,node} = this.props
+        this.setState({
+            x,
+            y,
+            r,
+            stroke,
+            node,
+            nodeValue:node.val
+        })
+    }
+
     renderLine(){
-        if(this.props.node.parent!== null){
+        if(this.props.node.parent !== null){
             return(
                 <line 
                     x1={this.props.node.parent.x} 
@@ -17,6 +38,13 @@ class BinarySearchTreeNodes extends React.Component{
             )
         }
     }
+      
+    // implement depth first search
+        // if node is visited, then change color to something else
+
+        // if current node being checked or in queue, do different color
+
+        // different elements added or traversed
 
     render(){
         return(

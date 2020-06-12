@@ -6,28 +6,24 @@ class BinarySearchTreeCanvas extends React.Component{
         super(props)
     }
     
-    componentDidMount(){
-        //const canvas = this.ref.canvas
-        //const ctx = canvas.getContext("2d")
-    }
-    
     // render the nodes by mapping over them
     renderBinarySearchTree = () => {
         let renderArray = []
-        if(this.props.bst.root ===null){
+        if(this.props.currentBST.root === null){
             return
         }
-        let queue = [this.props.bst.root]
-        
+        let queue = [this.props.currentBST.root]
+
         while (queue.length !== 0 ){
             const currentNode = queue.shift()
+
             renderArray.push(
                 <BinarySearchTreeNodes
                     key = {currentNode.x,currentNode.val}
                     x = {currentNode.x}
                     y = {currentNode.y}
                     r={20}
-                    stroke={"green"}
+                    stroke={currentNode.visited ? "green":"red"}
                     node = {currentNode}
                     nodeValue = {currentNode.val}
                 />
@@ -39,7 +35,6 @@ class BinarySearchTreeCanvas extends React.Component{
     }
 
     
-
 
     render(){
         return(

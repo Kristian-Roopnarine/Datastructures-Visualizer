@@ -90,13 +90,19 @@ export class BinarySearchTree{
 
     depthFirstSearch(array,node){
         array.push(node.val)
+
+        node.visited = true
+        
         let children = []
+
+        
         if (node.left){
             children.push(node.left)
         }
         if (node.right){
             children.push(node.right)
         }
+       
         for (const child of children){
             this.depthFirstSearch(array,child)
         }
@@ -111,6 +117,7 @@ export class BinarySearchTree{
         while (queue.length !== 0){
             // pop node out
             const currentNode = queue.shift()
+            node.visited = true
 
             // put value into array
             array.push(currentNode.val)
