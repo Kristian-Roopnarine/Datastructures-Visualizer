@@ -26,6 +26,13 @@ class BinarySearchTreeNodes extends React.Component{
         })
     }
 
+    changeColor = () => {
+        this.setState({
+            ...this.state,
+            stroke:"green"
+        })
+    }
+
     renderLine(){
         if(this.props.node.parent !== null){
             return(

@@ -13,6 +13,8 @@ export class BTNode {
         this.visited=false
         this.depth = 0
     }
+    
+    static order = 1
 
     addNode(node){
         if (node.val < this.val){
