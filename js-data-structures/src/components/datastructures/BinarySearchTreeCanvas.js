@@ -10,47 +10,47 @@ class BinarySearchTreeCanvas extends React.Component{
     
     // render the nodes by mapping over them
     renderAnimations = () => {
-        if (this.props.animation === "BFS"){
-            let renderArray = []
+        if(this.props.animating){
+            if (this.props.animation === "BFS"){
+                let renderArray = []
 
-            if(this.props.currentBST.root === null){
-                return
+                if(this.props.currentBST.root === null){
+                    return
+                }
+
+                this.props.renderingArray.map((node,index)=>{
+                    renderArray.push(<Delayed waitBeforeShow={500*node.depth}><BinarySearchTreeNodes
+                        key = {node.x,node.val}
+                        x = {node.x}
+                        y = {node.y}
+                        r={20}
+                        stroke={"green"}
+                        node = {node}
+                        nodeValue = {node.val}
+                    /></Delayed>)
+                })
+                return renderArray
+
+            } else if (this.props.animation === "DFS"){
+                let renderArray = []
+
+                if(this.props.currentBST.root === null){
+                    return
+                }
+
+                this.props.renderingArray.map((node,index)=>{
+                    renderArray.push(<Delayed waitBeforeShow={500*index}><BinarySearchTreeNodes
+                        key = {node.x,node.val}
+                        x = {node.x}
+                        y = {node.y}
+                        r={20}
+                        stroke={"green"}
+                        node = {node}
+                        nodeValue = {node.val}
+                    /></Delayed>)
+                })
+                return renderArray
             }
-
-            this.props.renderingArray.map((node,index)=>{
-                renderArray.push(<Delayed waitBeforeShow={500*node.depth}><BinarySearchTreeNodes
-                    key = {node.x,node.val}
-                    x = {node.x}
-                    y = {node.y}
-                    r={20}
-                    stroke={"green"}
-                    node = {node}
-                    nodeValue = {node.val}
-                /></Delayed>)
-            })
-            console.log(renderArray)
-            return renderArray
-
-        } else if (this.props.animation === "DFS"){
-            let renderArray = []
-
-            if(this.props.currentBST.root === null){
-                return
-            }
-
-            this.props.renderingArray.map((node,index)=>{
-                renderArray.push(<Delayed waitBeforeShow={500*index}><BinarySearchTreeNodes
-                    key = {node.x,node.val}
-                    x = {node.x}
-                    y = {node.y}
-                    r={20}
-                    stroke={"green"}
-                    node = {node}
-                    nodeValue = {node.val}
-                /></Delayed>)
-            })
-            console.log(renderArray)
-            return renderArray
         }
     }
 
@@ -87,7 +87,6 @@ class BinarySearchTreeCanvas extends React.Component{
 
         return(
             <>
-                {this.props.animation}
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol>
