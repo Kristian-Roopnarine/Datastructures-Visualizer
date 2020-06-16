@@ -1,9 +1,8 @@
-export function depthFirstSearch(grid, startNode, endNode, array) {
-  // get neighbors
-  let stack = [startNode];
+export function breadthFirstSearch(grid, startNode, endNode, array) {
+  let queue = [startNode];
 
-  while (stack.length !== 0) {
-    let currentNode = stack.pop();
+  while (queue.length !== 0) {
+    let currentNode = queue.shift();
     array.push(currentNode);
     if (currentNode.isVisited) {
       continue;
@@ -16,12 +15,26 @@ export function depthFirstSearch(grid, startNode, endNode, array) {
     }
     currentNode.isVisited = true;
     const unvisitedNeighbors = getUnvisitedNodes(currentNode, grid);
-    for (const nodes of unvisitedNeighbors) {
-      nodes.previousNode = currentNode;
-      stack.push(nodes);
+    for (const neighbor of unvisitedNeighbors) {
+      neighbor.previousNode = currentNode;
+      queue.push(neighbor);
     }
   }
   return;
+}
+
+export function getShortestPath(endNode) {
+  let shortestPath = [];
+  let currentNode = endNode;
+  if (currentNode.previousNode === null) {
+    return [];
+  }
+  while (currentNode !== null) {
+    console.log(currentNode);
+    shortestPath.push(currentNode);
+    currentNode = currentNode.previousNode;
+  }
+  return shortestPath.reverse();
 }
 
 export function getUnvisitedNodes(node, grid) {

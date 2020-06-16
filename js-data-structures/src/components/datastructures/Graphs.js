@@ -2,11 +2,17 @@ import React from "react";
 import GraphNodes from "./GraphNodes";
 import "./Graphs.css";
 import { MDBContainer, MDBBtn } from "mdbreact";
+import { depthFirstSearch } from "./algorithms/graphDepthFirst";
+
+import {
+  breadthFirstSearch,
+  getShortestPath,
+} from "./algorithms/graphBreadthFirst";
 
 const START_NODE_COL = 5;
 const START_NODE_ROW = 5;
 const END_NODE_COL = 30;
-const END_NODE_ROW = 5;
+const END_NODE_ROW = 10;
 
 class Graphs extends React.Component {
   constructor(props) {
@@ -19,20 +25,115 @@ class Graphs extends React.Component {
 
   componentDidMount() {
     const grid = createGrid();
-    this.setState({ grid }, () => console.log(this.state.grid));
+    this.setState({ grid });
   }
 
+  handleMouseDown = (row, col) => {
+    const newGrid = updateGridWithWalls(row, col, this.state.grid);
+    this.setState({ grid: newGrid, mouseIsPressed: true });
+  };
+
+  handleMouseEnter = (row, col) => {
+    if (!this.state.mouseIsPressed) return;
+    const newGrid = updateGridWithWalls(row, col, this.state.grid);
+    this.setState({ grid: newGrid });
+    console.log(row, col);
+  };
+
+  handleMouseUp = () => {
+    this.setState({ mouseIsPressed: false });
+  };
+
+  moveStartOrEndNode = (row, col) => {
+    if (!this.state.mouseIsPressed) return;
+    document.getElementsById(`node-${row}-${col}`).className = "node-moving";
+  };
+
+  resetGraph = () => {
+    const nodeList = document.getElementsByClassName("node");
+    for (const node of nodeList) {
+      console.log(node.id);
+      if (node.id === `node-${START_NODE_ROW}-${START_NODE_COL}`) {
+        node.className = "node node-start";
+      } else if (node.id === `node-${END_NODE_ROW}-${END_NODE_COL}`) {
+        node.className = "node node-end";
+      } else {
+        node.className = "node";
+      }
+    }
+    const grid = createGrid();
+    this.setState({ grid });
+  };
+
+  testDepthFirstSearch = () => {
+    // start array to hold visited nodes
+    const visitedNodes = [];
+    const startNode = this.state.grid[START_NODE_ROW][START_NODE_COL];
+    const endNode = this.state.grid[END_NODE_ROW][END_NODE_COL];
+    depthFirstSearch(this.state.grid, startNode, endNode, visitedNodes);
+    let shortestPath = getShortestPath(endNode);
+    this.animateVisitedNodes(visitedNodes, shortestPath);
+  };
+
+  testBreadthFirst = () => {
+    const visitedNodes = [];
+    const startNode = this.state.grid[START_NODE_ROW][START_NODE_COL];
+    const endNode = this.state.grid[END_NODE_ROW][END_NODE_COL];
+    breadthFirstSearch(this.state.grid, startNode, endNode, visitedNodes);
+    let shortestPath = getShortestPath(endNode);
+    this.animateVisitedNodes(visitedNodes, shortestPath);
+  };
+
+  animateShortestPath = (shortestPath) => {
+    for (let i = 0; i < shortestPath.length; i++) {
+      // row and col of each node
+      setTimeout(() => {
+        const node = shortestPath[i];
+        // find that element and change color
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-shortest-path";
+      }, 10 * i);
+    }
+  };
+
+  animateVisitedNodes = (array, shortestPath) => {
+    for (let i = 0; i <= array.length; i++) {
+      if (i === array.length) {
+        setTimeout(() => {
+          this.animateShortestPath(shortestPath);
+        }, 10 * i);
+        return;
+      }
+      // row and col of each node
+      setTimeout(() => {
+        const node = array[i];
+        // find that element and change color
+        if (!node.isWall) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-visited";
+        }
+      }, 10 * i);
+    }
+  };
+
   render() {
-    const { grid } = this.state;
+    const { grid, mouseIsPressed } = this.state;
     return (
       <>
         <MDBContainer>
-          <MDBBtn color="primary">Depth First Search</MDBBtn>
-          <MDBBtn color="primary">Breadth First Search</MDBBtn>
+          <MDBBtn color="primary" onClick={this.testDepthFirstSearch}>
+            Depth First Search
+          </MDBBtn>
+          <MDBBtn color="primary" onClick={this.testBreadthFirst}>
+            Breadth First Search
+          </MDBBtn>
+          <MDBBtn color="primary" onClick={this.resetGraph}>
+            Reset graph
+          </MDBBtn>
           <div className="grid">
             {grid.map((row, rowIdx) => {
               return (
-                <div key={rowIdx}>
+                <div key={rowIdx} style={{ margin: "0px", padding: "0px" }}>
                   {row.map((node, nodeIdx) => {
                     const {
                       row,
@@ -51,6 +152,17 @@ class Graphs extends React.Component {
                         isEnd={isEnd}
                         isStart={isStart}
                         isWall={isWall}
+                        mouseIsPressed={mouseIsPressed}
+                        onMouseDown={(row, col) =>
+                          this.handleMouseDown(row, col)
+                        }
+                        onMouseEnter={(row, col) => {
+                          this.handleMouseEnter(row, col);
+                        }}
+                        onMouseUp={() => this.handleMouseUp()}
+                        onMoveStart={(row, col) =>
+                          this.moveStartOrEndNode(row, col)
+                        }
                       />
                     );
                   })}
@@ -91,3 +203,18 @@ function createNodes(row, col) {
     previousNode: null,
   };
 }
+
+const updateGridWithWalls = (row, col, grid) => {
+  const newGrid = grid.slice();
+  let startNode = grid[START_NODE_ROW][START_NODE_COL];
+  let endNode = grid[END_NODE_ROW][END_NODE_COL];
+  const node = grid[row][col];
+  if (node !== startNode && node !== endNode) {
+    const newNode = {
+      ...node,
+      isWall: !node.isWall,
+    };
+    newGrid[row][col] = newNode;
+  }
+  return newGrid;
+};
