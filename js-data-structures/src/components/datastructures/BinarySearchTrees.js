@@ -117,6 +117,34 @@ class BinarySearchTrees extends React.Component {
         })
     }
 
+    animatePostOrderTraversal = () => {
+        this.setState({
+            ...this.state,
+            animating:false,
+            animation:"",
+            renderArray:[],
+            valueArray:[]
+        },()=>{
+            if (this.state.BST.root !== null){
+                let auxRenderArray = []
+                let auxValueArray = []
+                
+                let finalArrays = this.postOrderTraversal(this.state.BST.root,auxRenderArray,auxValueArray)
+    
+                auxValueArray = finalArrays[0]
+                auxRenderArray = finalArrays[1]
+    
+                this.setState({
+                    ...this.state,
+                    valueArray:auxValueArray,
+                    renderArray:auxRenderArray,
+                    animation:"DFS",
+                    animating:true
+                })
+            }
+        })
+    }
+
     inOrderTraversal = (node,auxRenderArray,auxValueArray) => {
         
         if (node !== null){
@@ -129,20 +157,29 @@ class BinarySearchTrees extends React.Component {
         return [auxValueArray,auxRenderArray]
     }
 
+    postOrderTraversal = (node,auxRenderArray,auxValueArray) => {
+        if (node !== null){
+            this.inOrderTraversal(node.left,auxRenderArray,auxValueArray)
+            this.inOrderTraversal(node.right,auxRenderArray,auxValueArray)
+            auxValueArray.push(node.val)
+            auxRenderArray.push({...node})
+            console.log(auxValueArray)
+            console.log(auxRenderArray)
+        }
+        return [auxValueArray,auxRenderArray]
+    }
+
 
     depthFirstIterative = (root) =>{
         let stack = [root]
         let res = []
         let renderAnimations = []
         while (stack.length !== 0 ){
-            
             let curr = stack.pop()
             renderAnimations.push({...curr})
-            
             res.push(curr.val)
             if(curr.right)stack.push(curr.right)
             if(curr.left)stack.push(curr.left)
-         
         }
         return [res,renderAnimations]
 

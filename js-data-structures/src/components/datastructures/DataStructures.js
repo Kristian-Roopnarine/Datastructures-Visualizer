@@ -1,7 +1,7 @@
 import React from 'react'
 import LinkedLists from './LinkedLists'
 import BinarySearchTrees from './BinarySearchTrees'
-
+import Graphs from './Graphs'
 class DataStructures extends React.Component{
     constructor(props){
         super(props)
@@ -13,6 +13,8 @@ class DataStructures extends React.Component{
             dataStructure = <LinkedLists />
         } else if (this.props.type === "Binary Search Tree"){
             dataStructure = <BinarySearchTrees />
+        } else if( this.props.type === 'Graphs'){
+            dataStructure = <Graphs />
         } else {
             dataStructure = <div>Oops there was an error.</div>
         }
