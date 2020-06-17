@@ -37,7 +37,6 @@ class Graphs extends React.Component {
     if (!this.state.mouseIsPressed) return;
     const newGrid = updateGridWithWalls(row, col, this.state.grid);
     this.setState({ grid: newGrid });
-    console.log(row, col);
   };
 
   handleMouseUp = () => {
@@ -120,7 +119,7 @@ class Graphs extends React.Component {
     const { grid, mouseIsPressed } = this.state;
     return (
       <>
-        <MDBContainer>
+        <MDBContainer fluid className="text-center">
           <MDBBtn color="primary" onClick={this.testDepthFirstSearch}>
             Depth First Search
           </MDBBtn>
@@ -130,46 +129,48 @@ class Graphs extends React.Component {
           <MDBBtn color="primary" onClick={this.resetGraph}>
             Reset graph
           </MDBBtn>
-          <div className="grid">
-            {grid.map((row, rowIdx) => {
-              return (
-                <div key={rowIdx} style={{ margin: "0px", padding: "0px" }}>
-                  {row.map((node, nodeIdx) => {
-                    const {
-                      row,
-                      col,
-                      isStart,
-                      isEnd,
-                      isWall,
-                      isVisited,
-                      previousNode,
-                    } = node;
-                    return (
-                      <GraphNodes
-                        key={nodeIdx}
-                        col={col}
-                        row={row}
-                        isEnd={isEnd}
-                        isStart={isStart}
-                        isWall={isWall}
-                        mouseIsPressed={mouseIsPressed}
-                        onMouseDown={(row, col) =>
-                          this.handleMouseDown(row, col)
-                        }
-                        onMouseEnter={(row, col) => {
-                          this.handleMouseEnter(row, col);
-                        }}
-                        onMouseUp={() => this.handleMouseUp()}
-                        onMoveStart={(row, col) =>
-                          this.moveStartOrEndNode(row, col)
-                        }
-                      />
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
+          <table className="mx-auto">
+            <tbody>
+              {grid.map((row, rowIdx) => {
+                return (
+                  <tr key={rowIdx} id={rowIdx}>
+                    {row.map((node, nodeIdx) => {
+                      const {
+                        row,
+                        col,
+                        isStart,
+                        isEnd,
+                        isWall,
+                        isVisited,
+                        previousNode,
+                      } = node;
+                      return (
+                        <GraphNodes
+                          key={nodeIdx}
+                          col={col}
+                          row={row}
+                          isEnd={isEnd}
+                          isStart={isStart}
+                          isWall={isWall}
+                          mouseIsPressed={mouseIsPressed}
+                          onMouseDown={(row, col) =>
+                            this.handleMouseDown(row, col)
+                          }
+                          onMouseEnter={(row, col) => {
+                            this.handleMouseEnter(row, col);
+                          }}
+                          onMouseUp={() => this.handleMouseUp()}
+                          onMoveStart={(row, col) =>
+                            this.moveStartOrEndNode(row, col)
+                          }
+                        />
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </MDBContainer>
       </>
     );

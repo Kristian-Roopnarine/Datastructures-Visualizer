@@ -1,27 +1,34 @@
-import React from 'react';
-import DataStructures from './components/datastructures/DataStructures'
-import {MDBBtn,MDBContainer} from 'mdbreact'
+import React from "react";
+import DataStructures from "./components/datastructures/DataStructures";
+import { MDBBtn, MDBContainer } from "mdbreact";
+import BaseNavBar from "./components/datastructures/BaseNavBar";
+import LinkedLists from "./components/datastructures/LinkedLists";
+import BinarySearchTrees from "./components/datastructures/BinarySearchTrees";
+import Graphs from "./components/datastructures/Graphs";
+import { BrowserRouter, Route } from "react-router-dom";
 
-
-class App extends React.Component{
-  state = {hideButtons:false,dataStructure:null}
+class App extends React.Component {
+  state = { hideButtons: false, dataStructure: null };
 
   hideOnClick = (e) => {
-    this.setState({dataStructure:e.target.value,hideButtons:!this.state.hideButtons})
-  }
+    this.setState({
+      dataStructure: e.target.value,
+      hideButtons: !this.state.hideButtons,
+    });
+  };
 
   render() {
-    const hideDiv = this.state.hideButtons
-    let homeDiv;
-    if (!hideDiv){
-      homeDiv = <><MDBBtn color="primary" value="Linked List" onClick={this.hideOnClick}>Linked Lists</MDBBtn><MDBBtn color="primary" value="Binary Search Tree" onClick={this.hideOnClick}>Binary Search Trees</MDBBtn><MDBBtn color="primary" value="Graphs" onClick={this.hideOnClick}>Graphs</MDBBtn></>
-      
-    } else {
-      homeDiv = <DataStructures type={this.state.dataStructure}/>
-    }
     return (
       <>
-        {homeDiv}
+        <BrowserRouter>
+          <BaseNavBar></BaseNavBar>
+          <Route path="/linked-lists" component={LinkedLists}></Route>
+          <Route
+            path="/binary-search-trees"
+            component={BinarySearchTrees}
+          ></Route>
+          <Route path="/graphs" component={Graphs}></Route>
+        </BrowserRouter>
       </>
     );
   }

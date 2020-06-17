@@ -29,7 +29,7 @@ class GraphNodes extends React.Component {
       ? "node-wall"
       : "";
     return (
-      <div
+      <td
         id={`node-${row}-${col}`}
         style={{ margin: "0px", padding: "0px" }}
         className={`node ${extraClass}`}
@@ -38,7 +38,7 @@ class GraphNodes extends React.Component {
         }
         onMouseEnter={() => onMouseEnter(row, col)}
         onMouseUp={() => onMouseUp()}
-      ></div>
+      ></td>
     );
   }
 }
