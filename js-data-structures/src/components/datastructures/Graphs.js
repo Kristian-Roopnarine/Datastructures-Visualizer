@@ -1,7 +1,15 @@
 import React from "react";
 import GraphNodes from "./GraphNodes";
 import "./Graphs.css";
-import { MDBContainer, MDBBtn } from "mdbreact";
+import { displayCode } from "./stringCode";
+import {
+  MDBContainer,
+  MDBBtn,
+  MDBBtnGroup,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+} from "mdbreact";
 import { depthFirstSearch } from "./algorithms/graphDepthFirst";
 
 import {
@@ -20,6 +28,8 @@ class Graphs extends React.Component {
     this.state = {
       grid: [],
       mouseIsPressed: false,
+      breadthFirstSearchModal: false,
+      depthFirstSearchModal: false,
     };
   }
 
@@ -27,6 +37,14 @@ class Graphs extends React.Component {
     const grid = createGrid();
     this.setState({ grid });
   }
+
+  toggle = (type) => {
+    const modalType = type + "Modal";
+    const modalState = this.state[modalType];
+    this.setState({
+      [modalType]: !modalState,
+    });
+  };
 
   handleMouseDown = (row, col) => {
     const newGrid = updateGridWithWalls(row, col, this.state.grid);
@@ -119,16 +137,62 @@ class Graphs extends React.Component {
     const { grid, mouseIsPressed } = this.state;
     return (
       <>
-        <MDBContainer fluid className="text-center">
-          <MDBBtn color="primary" onClick={this.testDepthFirstSearch}>
-            Depth First Search
-          </MDBBtn>
-          <MDBBtn color="primary" onClick={this.testBreadthFirst}>
-            Breadth First Search
-          </MDBBtn>
+        <MDBContainer fluid>
+          <MDBBtnGroup>
+            <MDBBtn color="primary" onClick={this.testDepthFirstSearch}>
+              Depth First Search
+            </MDBBtn>
+            <MDBBtn onClick={() => this.toggle("depthFirstSearch")} size="sm">
+              Code
+            </MDBBtn>
+            <MDBModal
+              isOpen={this.state.depthFirstSearchModal}
+              toggle={() => this.toggle("depthFirstSearch")}
+            >
+              <MDBModalHeader toggle={() => this.toggle("depthFirstSearch")}>
+                Code to Apply Depth First Search
+              </MDBModalHeader>
+              <MDBModalBody>
+                <pre>
+                  <code className="language-javascript">
+                    {displayCode.javaScript.binarySearchTrees.depthFirstSearch}
+                  </code>
+                </pre>
+              </MDBModalBody>
+            </MDBModal>
+          </MDBBtnGroup>
+
+          <MDBBtnGroup>
+            <MDBBtn color="primary" onClick={this.testBreadthFirst}>
+              Breadth First Search
+            </MDBBtn>
+            <MDBBtn onClick={() => this.toggle("breadthFirstSearch")} size="sm">
+              Code
+            </MDBBtn>
+            <MDBModal
+              isOpen={this.state.breadthFirstSearchModal}
+              toggle={() => this.toggle("breadthFirstSearch")}
+            >
+              <MDBModalHeader toggle={() => this.toggle("breadthFirstSearch")}>
+                Code to Apply Breadth First Search
+              </MDBModalHeader>
+              <MDBModalBody>
+                <pre>
+                  <code className="language-javascript">
+                    {
+                      displayCode.javaScript.binarySearchTrees
+                        .breadthFirstSearch
+                    }
+                  </code>
+                </pre>
+              </MDBModalBody>
+            </MDBModal>
+          </MDBBtnGroup>
+
           <MDBBtn color="primary" onClick={this.resetGraph}>
             Reset graph
           </MDBBtn>
+
           <table className="mx-auto">
             <tbody>
               {grid.map((row, rowIdx) => {

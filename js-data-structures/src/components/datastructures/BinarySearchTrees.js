@@ -38,30 +38,24 @@ class BinarySearchTrees extends React.Component {
   toggle = (type) => {
     const modalType = type + "Modal";
     const modalState = this.state[modalType];
-    this.setState(
-      {
-        [modalType]: !modalState,
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      [modalType]: !modalState,
+    });
   };
 
   resetState = () => {
-    this.setState(
-      {
-        ...this.state,
-        animating: false,
-        animation: "",
-        renderArray: [],
-        valueArray: [],
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      ...this.state,
+      animating: false,
+      animation: "",
+      renderArray: [],
+      valueArray: [],
+    });
   };
 
   drawTreeNode = () => {
     // create node
-    let treeNode = new BTNode(randomIntFromInterval(0, 99));
+    let treeNode = new BTNode(randomIntFromInterval(0, 10));
     // add to bst
     if (this.state.BST.size === 0) {
       treeNode.x = STARTING_X;
