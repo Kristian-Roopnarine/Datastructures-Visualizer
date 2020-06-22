@@ -206,8 +206,8 @@ class BinarySearchTrees extends React.Component {
 
   postOrderTraversal = (node, auxRenderArray, auxValueArray) => {
     if (node !== null) {
-      this.inOrderTraversal(node.left, auxRenderArray, auxValueArray);
-      this.inOrderTraversal(node.right, auxRenderArray, auxValueArray);
+      this.postOrderTraversal(node.left, auxRenderArray, auxValueArray);
+      this.postOrderTraversal(node.right, auxRenderArray, auxValueArray);
       auxValueArray.push(node.val);
       auxRenderArray.push({ ...node });
     }
@@ -249,7 +249,7 @@ class BinarySearchTrees extends React.Component {
     const valueArray = this.state.valueArray || [];
     return (
       <>
-        <MDBBtnGroup>
+        <MDBBtnGroup className="mt-3">
           <MDBBtn color="primary" onClick={this.drawTreeNode}>
             Add tree node
           </MDBBtn>
@@ -273,7 +273,7 @@ class BinarySearchTrees extends React.Component {
           </MDBModal>
         </MDBBtnGroup>
 
-        <MDBBtnGroup>
+        <MDBBtnGroup className="mt-3">
           <MDBBtn color="primary" onClick={(e) => this.animateBreadthFirst()}>
             Breadth First Search
           </MDBBtn>
@@ -297,7 +297,7 @@ class BinarySearchTrees extends React.Component {
           </MDBModal>
         </MDBBtnGroup>
 
-        <MDBBtnGroup>
+        <MDBBtnGroup className="mt-3">
           <MDBBtn color="primary" onClick={(e) => this.animateDepthFirst(e)}>
             Depth First Search (Pre Order traversal)
           </MDBBtn>
@@ -321,7 +321,7 @@ class BinarySearchTrees extends React.Component {
           </MDBModal>
         </MDBBtnGroup>
 
-        <MDBBtnGroup>
+        <MDBBtnGroup className="mt-3">
           <MDBBtn
             color="primary"
             onClick={(e) => this.animatePostOrderTraversal()}
@@ -348,7 +348,7 @@ class BinarySearchTrees extends React.Component {
           </MDBModal>
         </MDBBtnGroup>
 
-        <MDBBtnGroup>
+        <MDBBtnGroup className="mt-3">
           <MDBBtn
             color="primary"
             onClick={(e) => this.animateInOrderTraversal()}
@@ -375,8 +375,8 @@ class BinarySearchTrees extends React.Component {
           </MDBModal>
         </MDBBtnGroup>
 
-        <div>
-          <h3>Node traversal order :{valueArray.join(",")}</h3>
+        <div className="mt-3 text-center">
+          <h3>Node traversal order : {valueArray.join(" , ")}</h3>
         </div>
 
         <BinarySearchTreeCanvas

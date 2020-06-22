@@ -137,7 +137,7 @@ class Graphs extends React.Component {
     const { grid, mouseIsPressed } = this.state;
     return (
       <>
-        <MDBContainer fluid>
+        <MDBContainer fluid className="mt-3">
           <MDBBtnGroup>
             <MDBBtn color="primary" onClick={this.testDepthFirstSearch}>
               Depth First Search
@@ -192,8 +192,11 @@ class Graphs extends React.Component {
           <MDBBtn color="primary" onClick={this.resetGraph}>
             Reset graph
           </MDBBtn>
+          <div className="text-center">
+            <h3>Click and drag inside the grid to create walls.</h3>
+          </div>
 
-          <table className="mx-auto">
+          <table className="mx-auto mt-3">
             <tbody>
               {grid.map((row, rowIdx) => {
                 return (

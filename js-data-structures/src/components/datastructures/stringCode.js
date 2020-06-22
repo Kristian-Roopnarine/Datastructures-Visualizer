@@ -161,8 +161,8 @@ breadthFirstSearch = (node) => {
       postOrderTraversal: `
 postOrderTraversal = (node, auxValueArray) => {
     if (node !== null) {
-        this.inOrderTraversal(node.left,auxValueArray);
-        this.inOrderTraversal(node.right,auxValueArray);
+        this.postOrderTraversal(node.left,auxValueArray);
+        this.postOrderTraversal(node.right,auxValueArray);
         auxValueArray.push(node.val);
         
     }

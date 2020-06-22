@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import LinkedListSpace from "./LinkedListSpace";
 import { displayCode } from "./stringCode";
 import Prism from "prismjs";
@@ -24,7 +25,7 @@ class LinkedLists extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      feedBack: " You can add nodes to this data structure.",
+      feedBack: "",
       LL: new LinkedList(),
       renderArray: [],
       findNode: "",
@@ -72,14 +73,12 @@ class LinkedLists extends React.Component {
       let middleArray = this.state.renderArray;
       middleArray.splice(position - 1, 0, newNode);
 
-      this.setState(
-        {
-          ...this.state,
-          LL: middleLL,
-          renderArray: middleArray,
-        },
-        () => console.log(this.state.LL)
-      );
+      this.setState({
+        ...this.state,
+        LL: middleLL,
+        renderArray: middleArray,
+        feedBack: `Inserted node with a value of ${nodeToInsert.value} at position ${position}.`,
+      });
 
       setTimeout(() => {
         this.resetNodes();
@@ -231,8 +230,16 @@ class LinkedLists extends React.Component {
   render() {
     return (
       <MDBContainer>
-        <MDBRow>
+        <MDBRow className="mt-3">
           <MDBCol>
+            <a
+              href="https://medium.com/@kristian.roopnarine/data-structures-linked-lists-a3cfb0b728ac?sk=91adf31e9d8b6eb9813e45ddbfa08483"
+              className="btn btn-success"
+              target="_blank"
+            >
+              Description of Linked Lists
+            </a>
+
             <MDBBtnGroup>
               <MDBBtn color="primary" onClick={this.addNode}>
                 Add random integer node to Linked List

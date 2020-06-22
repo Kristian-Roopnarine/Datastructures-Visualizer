@@ -10,6 +10,7 @@ const ARRAY_SIZE = 80;
 const COMPARISON_COLOR = "red";
 const DEFAULT_COLOR = "blue";
 const SECONDARY_COLOR = "yellow";
+
 class SortingVisualizer extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +18,7 @@ class SortingVisualizer extends React.Component {
       array: [],
       sorted: false,
       isSorting: false,
+      swaps: 0,
     };
   }
 
@@ -26,7 +28,7 @@ class SortingVisualizer extends React.Component {
 
   animateQS = () => {
     if (this.state.sorted === false && this.state.isSorting === false) {
-      this.setState({ isSorting: true });
+      this.setState({ isSorting: true, swaps: 0 });
       let sortedAnimations = quickSort(this.state.array);
       for (let i = 0; i < sortedAnimations.length; i++) {
         const arrayBar = document.getElementsByClassName("array-bar");
@@ -41,6 +43,8 @@ class SortingVisualizer extends React.Component {
 
         if (colorChange === true && doSwap === true) {
           setTimeout(() => {
+            const newSwap = this.state.swaps + 1;
+            this.setState({ swaps: newSwap });
             const barOneHeight = barOneStyle.height;
             const barTwoHeight = barTwoStyle.height;
             barOneStyle.height = `${barTwoHeight}`;
@@ -60,7 +64,7 @@ class SortingVisualizer extends React.Component {
           isSorting: false,
           sorted: true,
         });
-      }, 1 * sortedAnimations.length);
+      }, 5 * sortedAnimations.length);
     } else {
       return;
     }
@@ -70,6 +74,7 @@ class SortingVisualizer extends React.Component {
     if (this.state.sorted === false && this.state.isSorting === false) {
       this.setState({
         isSorting: true,
+        swaps: 0,
       });
       let sortedAnimations = insertionSort(this.state.array);
       for (let i = 0; i < sortedAnimations.length; i++) {
@@ -84,6 +89,8 @@ class SortingVisualizer extends React.Component {
 
         if (colorChange === true) {
           setTimeout(() => {
+            const newSwap = this.state.swaps + 1;
+            this.setState({ swaps: newSwap });
             const barOneHeight = barOneStyle.height;
             const barTwoHeight = barTwoStyle.height;
             barOneStyle.height = `${barTwoHeight}`;
@@ -102,7 +109,7 @@ class SortingVisualizer extends React.Component {
           isSorting: false,
           sorted: true,
         });
-      }, 1 * sortedAnimations.length);
+      }, 5 * sortedAnimations.length);
     } else {
       return;
     }
@@ -112,6 +119,7 @@ class SortingVisualizer extends React.Component {
     if (this.state.sorted === false && this.state.isSorting === false) {
       this.setState({
         isSorting: true,
+        swaps: 0,
       });
       let sortedAnimations = bubbleSort(this.state.array);
       for (let i = 0; i < sortedAnimations.length; i++) {
@@ -126,6 +134,8 @@ class SortingVisualizer extends React.Component {
 
         if (colorChange === true) {
           setTimeout(() => {
+            const newSwap = this.state.swaps + 1;
+            this.setState({ swaps: newSwap });
             const barOneHeight = barOneStyle.height;
             const barTwoHeight = barTwoStyle.height;
             barOneStyle.height = `${barTwoHeight}`;
@@ -145,7 +155,7 @@ class SortingVisualizer extends React.Component {
           isSorting: false,
           sorted: true,
         });
-      }, 1 * sortedAnimations.length);
+      }, 5 * sortedAnimations.length);
     } else {
       return;
     }
@@ -155,6 +165,7 @@ class SortingVisualizer extends React.Component {
     if (this.state.sorted === false && this.state.isSorting === false) {
       this.setState({
         isSorting: true,
+        swaps: 0,
       });
       let sortedAnimations = heapSort(this.state.array);
       console.log(sortedAnimations.length);
@@ -170,6 +181,8 @@ class SortingVisualizer extends React.Component {
 
         if (colorChange === true) {
           setTimeout(() => {
+            const newSwap = this.state.swaps + 1;
+            this.setState({ swaps: newSwap });
             const barOneHeight = barOneStyle.height;
             const barTwoHeight = barTwoStyle.height;
             barOneStyle.height = `${barTwoHeight}`;
@@ -189,7 +202,7 @@ class SortingVisualizer extends React.Component {
           isSorting: false,
           sorted: true,
         });
-      }, 1 * sortedAnimations.length);
+      }, 5 * sortedAnimations.length);
     } else {
       return;
     }
@@ -209,22 +222,26 @@ class SortingVisualizer extends React.Component {
 
   render() {
     return (
-      <div>
-        <MDBBtn color="primary" onClick={this.resetArray}>
+      <div className="text-center">
+        <MDBBtn color="primary" onClick={this.resetArray} className="mt-3">
           Create New Array
         </MDBBtn>
-        <MDBBtn color="primary" onClick={this.animateQS}>
+        <MDBBtn color="primary" onClick={this.animateQS} className="mt-3">
           Quick Sort the Array
         </MDBBtn>
-        <MDBBtn color="primary" onClick={this.animateIS}>
+        <MDBBtn color="primary" onClick={this.animateIS} className="mt-3">
           Insert Sort the Array
         </MDBBtn>
-        <MDBBtn color="primary" onClick={this.animateBS}>
+        <MDBBtn color="primary" onClick={this.animateBS} className="mt-3">
           Bubble Sort the Array
         </MDBBtn>
-        <MDBBtn color="primary" onClick={this.animateHS}>
+        <MDBBtn color="primary" onClick={this.animateHS} className="mt-3">
           Heap Sort the Array
         </MDBBtn>
+        <div className="mt-3 text-center">
+          <h3>Number of array swaps : {this.state.swaps}</h3>
+        </div>
+
         <ArrayBars array={this.state.array} />
       </div>
     );

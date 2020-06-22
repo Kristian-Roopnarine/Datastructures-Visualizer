@@ -6,6 +6,7 @@ import LinkedLists from "./components/datastructures/LinkedLists";
 import BinarySearchTrees from "./components/datastructures/BinarySearchTrees";
 import Graphs from "./components/datastructures/Graphs";
 import SortingVisualizer from "./components/SortingVisualizer/SortingVisualizer";
+import Home from "./components/Home";
 import { BrowserRouter, Route } from "react-router-dom";
 
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
       <>
         <BrowserRouter>
           <BaseNavBar></BaseNavBar>
+          <Route path="/" exact component={Home}></Route>
           <Route path="/linked-lists" component={LinkedLists}></Route>
           <Route
             path="/binary-search-trees"
