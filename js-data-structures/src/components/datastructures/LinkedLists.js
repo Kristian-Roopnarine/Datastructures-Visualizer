@@ -229,7 +229,7 @@ class LinkedLists extends React.Component {
 
   render() {
     return (
-      <MDBContainer>
+      <MDBContainer fluid>
         <MDBRow className="mt-3">
           <MDBCol>
             <a
@@ -372,7 +372,7 @@ class LinkedLists extends React.Component {
           </MDBCol>
         </MDBRow>
 
-        <MDBRow>
+        <MDBRow className="p-2">
           <h3>{this.state.feedBack}</h3>
         </MDBRow>
 

@@ -249,6 +249,13 @@ class BinarySearchTrees extends React.Component {
     const valueArray = this.state.valueArray || [];
     return (
       <>
+        <a
+          href="https://medium.com/@kristian.roopnarine/data-structures-binary-search-trees-2f58a5a8e2a2?source=friends_link&sk=5c26b727983aba577883bcc0e3f3b6b0"
+          className="btn btn-success"
+          target="_blank"
+        >
+          Description of Binary Search Trees
+        </a>
         <MDBBtnGroup className="mt-3">
           <MDBBtn color="primary" onClick={this.drawTreeNode}>
             Add tree node
